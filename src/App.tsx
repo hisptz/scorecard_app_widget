@@ -1,12 +1,20 @@
+import {Provider} from "@dhis2/app-runtime";
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() :React.ReactElement {
+
+  const appConfig:any = {
+    baseUrl: "http://localhost:8081'",
+    apiVersion: 35,
+  }
+
   return (
+    <Provider  config={appConfig}>
     <div className="App">
-          ScoreCard Widget
+          Welcome Into the widget
     </div>
+    </Provider>
   );
 }
 
