@@ -6,7 +6,9 @@
     "@dhis2/app-runtime": "^3.2.9",
     "@dhis2/app-service-datastore": "^1.0.0-alpha.2",
     "@dhis2/cli-style": "^10.1.2",
+    "@dhis2/d2-i18n": "^1.1.0",
     "@dhis2/ui": "^7.16.0",
+    "@dhis2/ui-core": "^6.24.0",
     "@material-ui/core": "^4.12.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -59,5 +61,8 @@
   },
   "peerDependencies": {
     "styled-jsx": "^5.0.0"
+  },
+  "devDependencies": {
+    "@dhis2/cli-app-scripts": "^8.3.2"
   }
 }

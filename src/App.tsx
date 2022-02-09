@@ -1,12 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Provider} from "@dhis2/app-runtime";
+import { CssReset } from '@dhis2/ui-core'
+
 
 function App() :React.ReactElement {
+
+  const appConfig:any = {
+    baseUrl: process.env.REACT_APP_DHIS2_BASE_URL,
+    apiVersion: process.env.REACT_APP_DHIS2_BASE_URL_API_VERSION,
+  }
+
+
   return (
+    <Provider  config={appConfig}>
+      <CssReset />
     <div className="App">
-          ScoreCard Widget
+
+          app
     </div>
+    </Provider>
   );
 }
 
