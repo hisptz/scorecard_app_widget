@@ -1,23 +1,18 @@
+import {Provider} from "@dhis2/app-runtime";
 import React from 'react';
 import './App.css';
-import {Provider} from "@dhis2/app-runtime";
-import { CssReset } from '@dhis2/ui-core'
-
 
 function App() :React.ReactElement {
 
   const appConfig:any = {
-    baseUrl: process.env.REACT_APP_DHIS2_BASE_URL,
-    apiVersion: process.env.REACT_APP_DHIS2_BASE_URL_API_VERSION,
+    baseUrl: "http://localhost:8081'",
+    apiVersion: 35,
   }
-
 
   return (
     <Provider  config={appConfig}>
-      <CssReset />
     <div className="App">
-
-          app
+          Welcome Into the widget
     </div>
     </Provider>
   );
