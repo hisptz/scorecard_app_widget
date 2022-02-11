@@ -97,7 +97,7 @@ const ScorecardSummaryState = atom({
         get: async ({get}) => {
             const summary = get(AllScorecardsSummaryState);
             const user = get(UserState);
-            return filter(summary, (scorecardSummary) => {
+            return filter(summary, (scorecardSummary:any) => {
                 const {read} = getUserAuthority(user, scorecardSummary) ?? {};
                 return read;
             });
@@ -120,12 +120,12 @@ const ScorecardConfState = atomFamily({
     default: selectorFamily({
         key: "active-scorecard-config",
         get:
-            (scorecardId) =>
+            (scorecardId:any) =>
                 async ({get}) => {
                     const engine = get(EngineState);
                     get(ScorecardRequestId(scorecardId));
                     if (scorecardId) {
-                        const {scorecard, error} = await getScorecard(scorecardId, engine);
+                        const {scorecard, error}:any = await getScorecard(scorecardId, engine);
                         if (error) {
                             if (error?.details?.httpStatusCode === 404) {
                                 throw {
@@ -165,12 +165,12 @@ const ScorecardConfigDirtyState = atomFamily({
 const ScorecardConfigDirtySelector = selectorFamily({
     key: "scorecard-dirty-state-selector",
     get:
-        ({key, path}) =>
+        ({key, path}:any) =>
             ({get}) => {
                 return _get(get(ScorecardConfigDirtyState(key)), path);
             },
     set:
-        ({key, path}) =>
+        ({key, path}:any) =>
             ({get, set}, newValue) => {
                 const object = get(ScorecardConfigDirtyState(key));
                 const newObject = _set(cloneDeep(object), path, newValue);
@@ -209,7 +209,7 @@ const ScorecardViewState = atomFamily({
     default: selectorFamily({
         key: "scorecardViewStateSelector",
         get:
-            (key) =>
+            (key:any) =>
                 ({get}) => {
                     const scorecardId = get(ScorecardIdState);
                     const {calendar} = get(SystemSettingsState);
@@ -251,14 +251,15 @@ const ScorecardViewState = atomFamily({
 });
 
 const ScorecardLegendDefinitionSelector = selectorFamily({
+    key:"scorecard-legend-definition-selector",
     get:
-        (isDefault) =>
+        (isDefault:any) =>
             ({get}) => {
                 const legendDefinitions = get(ScorecardViewState("legendDefinitions"));
                 if (isDefault) {
-                    return filter(legendDefinitions, ({isDefault}) => isDefault);
+                    return filter(legendDefinitions, ({isDefault}:any) => isDefault);
                 }
-                return filter(legendDefinitions, ({isDefault}) => !isDefault);
+                return filter(legendDefinitions, ({isDefault}:any) => !isDefault);
             },
 });
 
@@ -299,7 +300,7 @@ const ScorecardTableConfigState = selectorFamily({
                 const {filteredOrgUnits, childrenOrgUnits} = get(
                     ScorecardOrgUnitState(orgUnits)
                 );
-                const {width: screenWidth} = get(ScreenDimensionState);
+                const {width: screenWidth}:any = get(ScreenDimensionState);
                 const dataColSpan = getColSpanDataGroups(
                     periods,
                     dataGroups,
@@ -347,7 +348,7 @@ const ScorecardOrgUnitState = atomFamily({
     default: selectorFamily({
         key: "selected-org-units-default",
         get:
-            (orgUnits) =>
+            (orgUnits:any) =>
                 async ({get}) => {
                     let childrenOrgUnits = [];
                     const filteredOrgUnits = get(SelectedOrgUnits(orgUnits));
@@ -376,6 +377,7 @@ const ScorecardDataSourceState = atom({
 
 const ScorecardDataLoadingState = atomFamily({
     key: "data-loading-state",
+    default: undefined
 });
 
 export default ScorecardConfState;

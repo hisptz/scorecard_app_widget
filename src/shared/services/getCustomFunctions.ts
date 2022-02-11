@@ -1,5 +1,5 @@
 const generateCustomFunctionQuery = (keys = []) => {
-    const query = {};
+    const query:any = {};
     for (const key of keys) {
       query[key] = {
         resource: `dataStore/functions/${key}`,

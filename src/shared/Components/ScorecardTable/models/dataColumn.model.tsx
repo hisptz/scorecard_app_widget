@@ -1,4 +1,7 @@
 export default class DataColumnModel {
+  id: any;
+  data: any;
+  label: any;
   constructor({
     id,
     label,
@@ -7,9 +10,9 @@ export default class DataColumnModel {
     displayArrows,
     highIsGood,
     showColors,
-  }) {
+  }:any) {
     this.id = id;
-    this.data = data;
+    this.data = this.data;
     this.label = label;
   }
 }

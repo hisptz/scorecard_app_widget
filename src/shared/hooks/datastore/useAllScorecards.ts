@@ -8,14 +8,14 @@ export default function useAllScorecards() {
     loading,
     summary,
     updateLoading,
-  } = useScorecardsSummary();
+  }:any = useScorecardsSummary();
   const {
     remove,
     loading: removeLoading,
     error: removeError,
-  } = useDeleteScorecard("", { lazy: true });
+  }:any = useDeleteScorecard("");
 
-  const deleteScorecard = async (id) => {
+  const deleteScorecard = async (id:any) => {
     await remove({
       id,
     });

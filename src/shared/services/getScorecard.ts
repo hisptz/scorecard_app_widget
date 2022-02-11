@@ -4,7 +4,7 @@ import OrgUnitSelection from "../../core/models/orgUnitSelection";
 const query = {
   scorecard: {
     resource: DATASTORE_ENDPOINT,
-    id: ({ id }) => id,
+    id: ({ id }:any) => id,
   },
 };
 
@@ -23,17 +23,17 @@ export default async function getScorecard(id = "", engine:any) {
 const orgUnitQuery = {
   orgUnits: {
     resource: "organisationUnits",
-    params: ({ orgUnits }) => ({
+    params: ({ orgUnits }:any) => ({
       filter: [`id:in:[${orgUnits?.join(",")}]`],
       fields: ["path", "displayName", "level", "id"],
     }),
   },
 };
 
-export async function getOrgUnitSelection({ orgUnitSelection }, engine) {
+export async function getOrgUnitSelection({ orgUnitSelection }:any, engine:any) {
   const { orgUnits: orgUnitsIds } = orgUnitSelection ?? {};
   const { orgUnits: resolvedOrgUnits } = await engine.query(orgUnitQuery, {
-    variables: { orgUnits: orgUnitsIds?.map(({ id }) => id) ?? [] },
+    variables: { orgUnits: orgUnitsIds?.map(({ id }:any) => id) ?? [] },
   });
   return new OrgUnitSelection({
     ...orgUnitSelection,

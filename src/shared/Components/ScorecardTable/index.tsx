@@ -1,1 +1,1 @@
-export default function ScorecardTable({ rows, columns }) {}
+export default function ScorecardTable({ rows, columns }:any) {}

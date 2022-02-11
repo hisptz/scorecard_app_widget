@@ -15,5 +15,5 @@ export function generateScorecardSummary(data:any) {
 export const generateCreateMutation = (id:any) => ({
   type: "create",
   resource: `${DATASTORE_ENDPOINT}/${id}`,
-  data: ({ data}) => data,
+  data: ({ data}:any) => data, 
 });

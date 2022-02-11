@@ -21,7 +21,7 @@ import {
   export function getDataSourceShortName(name = "") {
     return snakeCase(name)
       .split("_")
-      .map((s) => capitalize(s)[0])
+      .map((s:any) => capitalize(s)[0])
       .join("");
   }
   
@@ -45,7 +45,7 @@ import {
   
   export function generateLegendDefaults(
     legendDefinitions = [],
-    weight,
+    weight:any,
     highIsGood = true
   ) {
     if (!isEmpty(legendDefinitions)) {
@@ -82,7 +82,7 @@ import {
   
   export function getDataSourcesFromGroups(dataGroups:any) {
     const dataHolders = getHoldersFromGroups(dataGroups);
-    return flattenDeep(dataHolders?.map(({ dataSources }) => dataSources));
+    return flattenDeep(dataHolders?.map(({ dataSources }:any) => dataSources));
   }
   
   export function getDataSourcesDisplayName(dataSources:any) {
@@ -138,7 +138,7 @@ import {
       orgUnitLevels = [],
       dataOrgUnitLevel,
       legendDefinitions,
-    }
+    }:any
   ) {
     if (Array.isArray(legends)) {
       const allLegends = [...legends, ...defaultLegends];

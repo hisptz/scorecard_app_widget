@@ -6,7 +6,7 @@ const systemSettingsKeys = ["keyCalendar"];
 const systemSettingsQuery = {
   system: {
     resource: "systemSettings",
-    params: ({ keys }) => ({
+    params: ({ keys }:any) => ({
       keys: keys?.map((key) => `key=${key}`),
     }),
   },

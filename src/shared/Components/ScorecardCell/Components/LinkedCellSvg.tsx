@@ -37,7 +37,7 @@ export default function LinkedCellSvg({
                 style={{ fontWeight: bold && 'bold' }}
                 id={'test-cell-selector'}
                 lengthAdjust="spacingAndGlyphs"
-                textLength={topValue?.length > 4 ? 28 : null}
+                textLength={topValue?.length > 4 ? 28 : ''}
                 fontSize={topFontSize}
                 x={padding + fontSize}
                 y={fontSize + padding}
@@ -70,7 +70,7 @@ export default function LinkedCellSvg({
                 style={{ fontWeight: bold && 'bold' }}
                 id={'test-cell-selector'}
                 lengthAdjust="spacingAndGlyphs"
-                textLength={bottomValue?.length > 4 ? 28 : null}
+                textLength={bottomValue?.length > 4 ? 28 : ''}
                 fontSize={bottomFontSize}
                 x={width / 2 + padding / 4}
                 y={height - padding}

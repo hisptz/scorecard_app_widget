@@ -16,8 +16,8 @@ import classes from "./CustomField.module.css";
 
 const { Field } = ReactFinalForm;
 
-export function CustomInput({ input, valueType, optionSet, ...props }) {
-  const type = useMemo(() => DHIS2ValueTypes[valueType].formName, [valueType]);
+export function CustomInput({ input, valueType, optionSet, ...props }:any) {
+  const type:any = useMemo(() => DHIS2ValueTypes[valueType].formName, [valueType]);
   const options = map(optionSet?.options, ({ name, code }) => ({
     label: name,
     value: code,
@@ -75,7 +75,7 @@ CustomInput.propTypes = {
   optionSet: PropTypes.object,
 };
 
-export default function CustomField({ field, ...props }) {
+export default function CustomField({ field, ...props }:any) {
   const {
     name,
     formName,

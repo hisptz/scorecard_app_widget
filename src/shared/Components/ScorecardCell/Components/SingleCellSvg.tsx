@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { DecreasingArrows, IncreasingArrows } from "./Arrows";
 
-export default function SingleCellSvg({ color, value, status, bold }) {
+export default function SingleCellSvg({ color, value, status, bold }:any) {
   const width = 100;
   const height = 47;
   const fontSize = 12;
@@ -41,10 +41,3 @@ export default function SingleCellSvg({ color, value, status, bold }) {
     </svg>
   );
 }
-
-SingleCellSvg.propTypes = {
-  value: PropTypes.string.isRequired,
-  bold: PropTypes.bool,
-  color: PropTypes.string,
-  status: PropTypes.oneOf(["increasing", "decreasing"]),
-};

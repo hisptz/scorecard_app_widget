@@ -23,14 +23,14 @@ export default function CalendarSpecificPeriodDimension({
   const [selectedPeriodCategory, setSelectedPeriodCategory] = useState(
     head(Object.values(PeriodCategories))
   );
-  const { _periodType } = periodInstance.get() ?? {};
+  const { _periodType }:any = periodInstance.get() ?? {};
   const { _periodTypes } = _periodType ?? {};
-  const relativePeriodTypes = filter(_periodTypes, ({ id }) =>
+  const relativePeriodTypes = filter(_periodTypes, ({ id }:any) =>
     id.toLowerCase().match(RegExp("relative".toLowerCase()))
   );
   const fixedPeriodTypes = filter(
     _periodTypes,
-    ({ id }) => !id.toLowerCase().match(RegExp("relative".toLowerCase()))
+    ({ id }:any) => !id.toLowerCase().match(RegExp("relative".toLowerCase()))
   );
 
   const [selectedRelativePeriodType, setSelectedRelativePeriodType] = useState(
@@ -91,12 +91,12 @@ export default function CalendarSpecificPeriodDimension({
                 <SingleSelectField
                   dense
                   selected={selectedRelativePeriodType}
-                  onChange={({ selected }) =>
+                  onChange={({ selected }:any) =>
                     setSelectedRelativePeriodType(selected)
                   }
                   label={i18n.t("Period Type")}
                 >
-                  {relativePeriodTypes?.map((periodType) => (
+                  {relativePeriodTypes?.map((periodType:any) => (
                     <SingleSelectOption
                       key={periodType?.id}
                       label={periodType?.name}
@@ -111,12 +111,12 @@ export default function CalendarSpecificPeriodDimension({
                   <SingleSelectField
                     dense
                     selected={selectedFixedPeriodType}
-                    onChange={({ selected }) =>
+                    onChange={({ selected }:any) =>
                       setSelectedFixedPeriodType(selected)
                     }
                     label={i18n.t("Period Type")}
                   >
-                    {fixedPeriodTypes?.map((periodType) => (
+                    {fixedPeriodTypes?.map((periodType:any) => (
                       <SingleSelectOption
                         key={periodType?.id}
                         label={periodType?.name}

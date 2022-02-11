@@ -1,4 +1,4 @@
-import {useDataEngine, useDataMutation, useDataQuery,} from "@dhis2/app-runtime";
+import {useDataEngine, useDataMutation, useDataQuery} from "@dhis2/app-runtime";
 import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
 import {DATASTORE_ENDPOINT} from "../../../core/constants/config";
@@ -9,24 +9,24 @@ import useScorecardsSummary from "./useScorecardsSummary";
 const query = {
     scorecard: {
         resource: DATASTORE_ENDPOINT,
-        id: ({id}) => id,
+        id: ({id}:any) => id,
     },
 };
 
-const updateMutation = {
+const updateMutation:any = {
     type: "update",
     resource: DATASTORE_ENDPOINT,
-    id: ({id}) => id,
-    data: ({data}) => data,
+    id: ({id}:any) => id,
+    data: ({data}:any) => data,
 };
 
-const deleteMutation = {
+const deleteMutation:any = {
     type: "delete",
     resource: DATASTORE_ENDPOINT,
-    id: ({id}) => id,
+    id: ({id}:any) => id,
 };
 
-export function useDeleteScorecard(id) {
+export function useDeleteScorecard(id:any) {
     const [executionError, setExecutionError] = useState();
     const [removeMutate, {loading, error: removeError}] = useDataMutation(
         deleteMutation,
@@ -38,7 +38,7 @@ export function useDeleteScorecard(id) {
         try {
             await removeMutate({id});
             await removeSingleScorecardSummary(id);
-        } catch (e) {
+        } catch (e:any) {
             console.error(e);
             setExecutionError(e);
         }
@@ -51,7 +51,7 @@ export function useDeleteScorecard(id) {
     };
 }
 
-export function useUpdateScorecard(id) {
+export function useUpdateScorecard(id:any) {
     const setScorecardRequestId = useSetRecoilState(ScorecardRequestId(id));
     const [updateMutate, {loading}] = useDataMutation(
         updateMutation,
@@ -59,7 +59,7 @@ export function useUpdateScorecard(id) {
     );
     const {updateSingleScorecardSummary} = useScorecardsSummary();
 
-    const update = async (data) => {
+    const update = async (data:any) => {
         const scorecardSummary = generateScorecardSummary(data);
         await updateSingleScorecardSummary(id, scorecardSummary);
         await updateMutate({id, data});
@@ -73,10 +73,10 @@ export function useUpdateScorecard(id) {
 }
 
 export function useAddScorecard() {
-    const engine = useDataEngine();
+    const engine :any= useDataEngine();
     const {addSingleScorecardSummary} = useScorecardsSummary();
 
-    const add = async (data) => {
+    const add = async (data:any) => {
         const scorecardSummary = generateScorecardSummary(data);
         await engine.mutate(generateCreateMutation(data?.id), {
             variables: {data},
@@ -89,11 +89,11 @@ export function useAddScorecard() {
     };
 }
 
-export default function useScorecard(scorecardId) {
+export default function useScorecard(scorecardId:any) {
     const setScorecardState = useSetRecoilState(ScorecardConfState(scorecardId));
     const {loading, data, error, refetch} = useDataQuery(query, {lazy: true});
 
-    const set = async (id) => {
+    const set = async (id:any) => {
         await refetch({id});
     };
 

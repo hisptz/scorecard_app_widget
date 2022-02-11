@@ -1,5 +1,7 @@
 export default class LinkedDataColumnModel {
-  constructor({ label, dataColumns }) {
+  label: any;
+  dataColumns: any;
+  constructor({ label, dataColumns }:any) {
     this.label = label;
     this.dataColumns = dataColumns;
   }

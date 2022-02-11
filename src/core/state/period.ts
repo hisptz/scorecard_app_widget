@@ -11,7 +11,7 @@ const PeriodResolverState = selector({
         const {calendar} = get(SystemSettingsState) ?? {calendar: "gregorian"};
 
         if (!isEmpty(periods)) {
-            const relativePeriods = filter(periods, ({id}) => {
+            const relativePeriods = filter(periods, ({id}:any) => {
                 const period = new Period().setPreferences({allowFuturePeriods: true}).setCalendar(calendar).getById(id);
                 return period?.type?.match(RegExp("Relative"));
             });

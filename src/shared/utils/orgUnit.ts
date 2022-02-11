@@ -30,7 +30,7 @@ export default function getSelectedOrgUnitSelectionDisplay(
 
   if (!isEmpty(levels)) {
     display.push({
-      name: `Levels: ${levels?.map((level) => {
+      name: `Levels: ${levels?.map((level:any) => {
         const levelObject = find(orgUnitLevels, ["id", level]) ?? {};
         return levelObject.displayName;
       })}`,
@@ -39,7 +39,7 @@ export default function getSelectedOrgUnitSelectionDisplay(
   if (!isEmpty(groups)) {
     display.push({
       name: `Groups: ${groups?.map(
-        (group) => find(orgUnitGroups, ["id", group]).displayName
+        (group:any) => find(orgUnitGroups, ["id", group]).displayName
       )}`,
     });
   }

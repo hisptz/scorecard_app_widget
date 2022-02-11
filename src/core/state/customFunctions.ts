@@ -14,7 +14,7 @@ export const CustomFunctionsKeysState = atom({
     key: "customFunctionKeysSelector",
     get: async ({ get }) => {
       try {
-        const engine = get(EngineState);
+        const engine:any = get(EngineState);
         const { keys } = await engine.query(customFunctionsKeysQuery);
         if (keys) {
           return keys;

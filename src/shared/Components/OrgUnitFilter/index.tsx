@@ -15,7 +15,7 @@ import useOrgUnitLevelsAndGroups from "./hooks/getLevelsAndGroups";
 import useOrgUnitsRoot from "./hooks/useOrgUnitsRoot";
 
 export default function OrgUnitFilter({ value, onUpdate }:any):React.ReactElement {
-  const { roots, error, loading } = useOrgUnitsRoot();
+  const { roots, error, loading }:any = useOrgUnitsRoot();
   const {
     orgUnits: selectedOrgUnits = [],
     levels: selectedLevels,
@@ -29,7 +29,7 @@ export default function OrgUnitFilter({ value, onUpdate }:any):React.ReactElemen
     levels,
     error: levelsAndGroupsError,
     loading: levelsAndGroupsLoading,
-  } = useOrgUnitLevelsAndGroups();
+  }:any = useOrgUnitLevelsAndGroups();
 
   function isOrgUnitSelected(orgUnit:any) {
     return !isEmpty(find(selectedOrgUnits, ["id", orgUnit?.id]));
@@ -138,10 +138,10 @@ export default function OrgUnitFilter({ value, onUpdate }:any):React.ReactElemen
             >
               <OrganisationUnitTree
                 disableSelection={disableSelections}
-                selected={selectedOrgUnits?.map(({ path }) => path)}
-                initiallyExpanded={selectedOrgUnits?.map(({ path }) => path)}
-                roots={roots?.map(({ id }) => id)}
-                onChange={(orgUnit) => {
+                selected={selectedOrgUnits?.map(({ path }:any) => path)}
+                initiallyExpanded={selectedOrgUnits?.map(({ path }:any) => path)}
+                roots={roots?.map(({ id }:any) => id)}
+                onChange={(orgUnit:any) => {
                   if (isOrgUnitSelected(orgUnit)) {
                     onDeselectOrgUnit(orgUnit);
                   } else {
@@ -172,7 +172,7 @@ export default function OrgUnitFilter({ value, onUpdate }:any):React.ReactElemen
             clearText={i18n.t("Clear")}
             label={i18n.t("Select Level(s)")}
           >
-            {levels?.map(({ displayName, id }) => (
+            {levels?.map(({ displayName, id }:any) => (
               <MultiSelectOption label={displayName} value={id} key={id} />
             ))}
           </MultiSelectField>

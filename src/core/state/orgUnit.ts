@@ -9,7 +9,7 @@ const { atomFamily } = require("recoil");
 const orgUnitQuery = {
   orgUnit: {
     resource: "organisationUnits",
-    id: ({ id }) => id,
+    id: ({ id }:any) => id,
     params: {
       fields: ["id", "displayName", "path"],
     },
@@ -19,7 +19,7 @@ const orgUnitQuery = {
 const orgUnitChildrenQuery = {
   orgUnit: {
     resource: "organisationUnits",
-    id: ({ id }) => id,
+    id: ({ id }:any) => id,
     params: {
       fields: ["children[level,id,displayName,path]"],
     },
@@ -29,7 +29,7 @@ const orgUnitChildrenQuery = {
 const selectedOrgUnitsQuery = {
   orgUnits: {
     resource: "organisationUnits",
-    params: ({ ids }) => ({
+    params: ({ ids }:any) => ({
       fields: ["id", "displayName", "path", "level"],
       filter: `id:in:[${[...ids]}]`,
     }),
@@ -98,13 +98,13 @@ export const OrgUnitPathState = atomFamily({
   default: selectorFamily({
     key: "orgUnitPathSelector",
     get:
-      (path = "") =>
+      (path:any = "") =>
       async ({ get }) => {
         const orgUnits = compact(path.split("/"));
         const orgUnitNames = sortBy(
           get(SelectedOrgUnits(orgUnits)),
           "level"
-        )?.map(({ displayName }) => displayName);
+        )?.map(({ displayName }:any) => displayName);
         return orgUnitNames.join("/");
       },
   }),
@@ -128,7 +128,7 @@ export const LowestOrgUnitLevel = selector({
   key: "last-org-unit-level",
   get: ({ get }) => {
     const orgUnitLevels = get(OrgUnitLevels);
-    return reduce(orgUnitLevels, (acc, level) => (level.level > acc.level ? level : acc));
+    return reduce(orgUnitLevels, (acc:any, level:any) => (level.level > acc.level ? level : acc));
   },
 });
 
@@ -136,7 +136,7 @@ export const LowestOrgUnitLevel = selector({
 const userSubUnitsQuery = {
   ou: {
     resource: "analytics",
-    params: ({ pe, dx, ou }) => ({
+    params: ({ pe, dx, ou }:any) => ({
       dimension: [`ou:${ou}`, `pe:${pe}`, `dx:${dx}`],
       skipData: true,
     }),
@@ -172,7 +172,7 @@ export const InitialOrgUnits = selector({
         });
         resolvedOrgUnits = [
           ...resolvedOrgUnits,
-          ...ou?.metaData?.dimensions?.ou?.map((ou) => ({ id: ou })),
+          ...ou?.metaData?.dimensions?.ou?.map((ou:any) => ({ id: ou })),
         ];
       }
       if (userSubUnit) {
@@ -185,7 +185,7 @@ export const InitialOrgUnits = selector({
         });
         resolvedOrgUnits = [
           ...resolvedOrgUnits,
-          ...ou?.metaData?.dimensions?.ou?.map((ou) => ({ id: ou })),
+          ...ou?.metaData?.dimensions?.ou?.map((ou:any) => ({ id: ou })),
         ];
       }
       if (userOrgUnit) {
@@ -197,7 +197,7 @@ export const InitialOrgUnits = selector({
           variables: {
             pe: head(periods)?.id,
             dx: head(head(dataHolders)?.dataSources)?.id,
-            ou: levels?.map((level) => `LEVEL-${level}`)?.join(";"),
+            ou: levels?.map((level:any) => `LEVEL-${level}`)?.join(";"),
           },
         });
         resolvedOrgUnits = [
@@ -211,7 +211,7 @@ export const InitialOrgUnits = selector({
           variables: {
             pe: head(periods)?.id,
             dx: head(head(dataHolders)?.dataSources)?.id,
-            ou: groups?.map((group) => `OU_GROUP-${group}`)?.join(";"),
+            ou: groups?.map((group:any) => `OU_GROUP-${group}`)?.join(";"),
           },
         });
         resolvedOrgUnits = [

@@ -76,7 +76,7 @@ function getScorecardPeriodSelection(oldScorecardPeriodSelections:any, periodTyp
 function getScorecardDataSelection(oldScorecardDataSelections:any) {
   return {
     dataGroups: (oldScorecardDataSelections?.indicator_holder_groups || []).map(
-      (dataGroup) => {
+      (dataGroup:any) => {
         return {
           id: dataGroup?.id,
           style: {
@@ -84,7 +84,7 @@ function getScorecardDataSelection(oldScorecardDataSelections:any) {
             backgroundColor: dataGroup.background_color,
           },
           title: dataGroup?.name,
-          dataHolders: dataGroup?.indicator_holder_ids.map((holderId) => {
+          dataHolders: dataGroup?.indicator_holder_ids.map((holderId:any) => {
             return getScorecardDataHolder(
               oldScorecardDataSelections.indicator_holders,
               holderId

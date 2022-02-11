@@ -6,11 +6,11 @@ import {useRecoilCallback, useRecoilState} from "recoil";
 import {DATASTORE_ENDPOINT, DATASTORE_SCORECARD_SUMMARY_KEY,} from "../../../core/constants/config";
 import {ScorecardSummaryState} from "../../../core/state/scorecard";
 
-const updateMutation = {
+const updateMutation:any = {
     type: "update",
     resource: DATASTORE_ENDPOINT,
     id: DATASTORE_SCORECARD_SUMMARY_KEY,
-    data: ({data}) => data,
+    data: ({data}:any) => data,
 };
 
 export default function useScorecardsSummary() {
@@ -49,7 +49,7 @@ export default function useScorecardsSummary() {
                     data: updatedList,
                 });
                 setSummary(updatedList);
-            } catch (e) {
+            } catch (e:any) {
                 setExecutionError(e);
             }
         },
@@ -58,14 +58,14 @@ export default function useScorecardsSummary() {
     const removeSingleScorecardSummary = useCallback(
         async (id) => {
             try {
-                const updatedList = produce(summary, (draft) => {
+                const updatedList = produce(summary, (draft:any) => {
                     draft.splice(findIndex(draft, ["id", id]), 1);
                 });
                 await update({
                     data: updatedList,
                 });
                 setSummary(updatedList);
-            } catch (e) {
+            } catch (e:any) {
                 console.error(e);
                 setExecutionError(e);
             }

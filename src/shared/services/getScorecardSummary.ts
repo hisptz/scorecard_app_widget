@@ -22,7 +22,7 @@ async function initializeKey(engine:any) {
   return await engine.mutate(addMutation, { variables: { data: [] } });
 }
 
-export default async function getScorecardSummary(engine:any){
+export default async function getScorecardSummary(engine:any):Promise<any> {
   try {
     const response = await engine.query(query);
     return { summary: response?.summary };
@@ -51,21 +51,21 @@ const restoreMutation = {
 const singleScorecardQuery = {
   scorecard: {
     resource: DATASTORE_ENDPOINT,
-    id: ({ id }) => id,
+    id: ({ id }:any) => id,
   },
 };
 
-export const restoreScorecardSummary = async (engine) => {
+export const restoreScorecardSummary = async (engine:any) => {
   const { summary, error } = await getScorecardSummary(engine);
   if (!error) {
     const { scorecards: allKeys } = await engine.query(restoreQuery);
     const scorecards = filter(
       allKeys,
-      (key) => key !== "settings" && key !== "savedObjects"
+      (key:any) => key !== "settings" && key !== "savedObjects"
     );
     if (!isEmpty(scorecards)) {
-      const scorecardsToRestore = filter(scorecards, (key) => {
-        return !summary?.map(({ id }) => id)?.includes(key);
+      const scorecardsToRestore = filter(scorecards, (key:any) => {
+        return !summary?.map(({ id }:any) => id)?.includes(key);
       });
       if (!isEmpty(scorecardsToRestore)) {
         const updatedSummary = [...summary];

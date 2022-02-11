@@ -48,7 +48,7 @@ export async function searchOrganisationUnit(keyword:string, engine:any) {
 
 export function useSearchOrganisationUnit() {
   const [keyword, setKeyword] = useState();
-  const { data, error, loading, refetch } = useDataQuery(orgUnitSearchQuery, {
+  const { data, error, loading, refetch }:any = useDataQuery(orgUnitSearchQuery, {
     lazy: true,
   });
   const updateKeyword = useRef(

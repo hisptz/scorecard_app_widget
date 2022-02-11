@@ -4,9 +4,8 @@
   "private": true,
   "dependencies": {
     "@dhis2/analytics": "^23.2.1",
-    "@dhis2/app-runtime": "^3.2.9",
+    "@dhis2/app-runtime": "^3.2.5",
     "@dhis2/app-service-datastore": "^1.0.0-alpha.2",
-    "@dhis2/cli-style": "^10.1.2",
     "@dhis2/d2-i18n": "^1.1.0",
     "@dhis2/ui": "^7.16.0",
     "@hisptz/react-ui": "^1.0.27",
@@ -26,11 +25,13 @@
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-color": "^2.19.3",
+    "react-dnd": "^15.1.1",
     "react-dnd-html5-backend": "^15.1.2",
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
     "react-js-loading-shimmer": "^1.0.10",
-    "react-router-dom": "^6.2.1",
+    "react-jsx-parser": "^1.28.4",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
     "react-to-print": "^2.14.4",
     "react-web-vitals": "^1.0.1",
@@ -43,16 +44,10 @@
   "scripts": {
     "start": "react-scripts start ",
     "build": "react-scripts build",
-    "build:widget": "cp public/manifest.webapp.dashboardwidget public/manifest.webapp && npm run build && cd dist && zip -r scorecard-widget.zip .",
+    "build:widget": "yarn build && cp public/manifest.webapp.dashboardwidget  build/manifest.webapp &&  cd build && zip -r scorecard-widget.zip .",
     "proxy": "https://hisp.apps.dhis2.org/dev",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -70,6 +65,7 @@
     "styled-jsx": "^5.0.0"
   },
   "devDependencies": {
-    "@dhis2/cli-app-scripts": "^8.3.2"
+    "@types/file-saver": "^2.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.11.0"
   }
 }

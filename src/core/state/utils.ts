@@ -14,7 +14,7 @@ import {
     orgUnitSort,
     filteredOrgUnits,
     childrenOrgUnits,
-  }) {
+  }:any) {
     const parentTemp = [];
     const childrenTemp = [];
     for (const ou of orgUnitSort) {
@@ -34,7 +34,7 @@ import {
     sort,
     filteredOrgUnits,
     childrenOrgUnits,
-  }) {
+  }:any) {
     let childOrgUnits = childrenOrgUnits;
     let parentOrgUnits = filteredOrgUnits;
   
@@ -57,17 +57,17 @@ import {
     };
   }
   
-  export function sortDataSourcesBasedOnData({ dataSort, dataSources }) {
+  export function sortDataSourcesBasedOnData({ dataSort, dataSources }:any) {
     const temp = [];
     for (const dx of dataSort) {
       temp.push(
-        find(dataSources, ({ dataSources }) => !!find(dataSources, ["id", dx]))
+        find(dataSources, ({ dataSources }:any) => !!find(dataSources, ["id", dx]))
       );
     }
     return uniqBy(temp, "id");
   }
   
-  export function sortDataSourcesBasedOnNames({ sort, dataSources }) {
+  export function sortDataSourcesBasedOnNames({ sort, dataSources }:any) {
     let filteredDataSources = dataSources;
     if (sort === TableSort.ASC) {
       filteredDataSources = sortBy(dataSources, "displayName");
@@ -93,7 +93,7 @@ import {
     return translatedAccess;
   }
   
-  export function getUserAuthority(user, scorecardSummary) {
+  export function getUserAuthority(user:any, scorecardSummary:any) {
     const {
       user: userId,
       userAccesses,
@@ -118,18 +118,18 @@ import {
         "id"
       );
       if (!isEmpty(userGroups)) {
-        const accesses = userGroups.map(({ access }) => access);
+        const accesses = userGroups.map(({ access }:any) => access);
         const translatedAccesses = accesses.map(translateAccess);
   
         return {
           read: reduce(
             translatedAccesses,
-            (acc, value) => acc || value.read,
+            (acc:any, value:any) => acc || value.read,
             false
           ),
           write: reduce(
             translatedAccesses,
-            (acc, value) => acc || value.write,
+            (acc:any, value:any) => acc || value.write,
             false
           ),
         };

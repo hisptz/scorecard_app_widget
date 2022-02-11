@@ -14,8 +14,8 @@ export function updateListFromDragAndDrop(
   }
   
   export function updateListsFromDragAndDrop(
-    { sourceList, destinationList },
-    { sourceIndex, destinationIndex }
+    { sourceList, destinationList }:any,
+    { sourceIndex, destinationIndex }:any
   ) {
     if (!isNaN(destinationIndex) && !isNaN(sourceIndex)) {
       const value = sourceList[sourceIndex];

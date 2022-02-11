@@ -9,7 +9,7 @@ import {
 } from "@dhis2/ui";
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
-import { CalendarTypes } from "../../../core/constants/calendar";
+import { CalenderTypes } from "../../../core/constants/calender";
 import { SystemSettingsState } from "../../../core/state/system";
 import EthiopianPeriodDimension from "./Components/EthiopianPeriodDimension";
 
@@ -36,7 +36,7 @@ export default function PeriodSelectorModal({
       <ModalTitle>Select Period(s)</ModalTitle>
       <ModalContent>
         <div className="row center align-items-center">
-          {calendar === CalendarTypes.ETHIOPIAN ? (
+          {calendar === CalenderTypes.ETHIOPIAN ? (
             <EthiopianPeriodDimension
               onSelect={onPeriodSelect}
               selectedPeriods={value?.periods ?? []}
