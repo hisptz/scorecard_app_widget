@@ -19,7 +19,7 @@ const query = {
   },
 };
 
-export default function LegendsAnalysis({ id }) {
+export default function LegendsAnalysis({ id }):React.ReactElement {
   const { loading, error, data, refetch } = useDataQuery(query, {
     variables: { id },
   });

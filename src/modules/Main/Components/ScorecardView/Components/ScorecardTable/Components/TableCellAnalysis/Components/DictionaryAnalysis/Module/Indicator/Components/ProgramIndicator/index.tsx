@@ -9,8 +9,9 @@ import {
 import { useRecoilValue } from "recoil";
 import { programIndicatorStateDictionary } from "../../../../Store";
 import Row from "./Row";
+import React from "react"
 
-export default function ProgramIndicatorIndicator() {
+export default function ProgramIndicatorIndicator():React.ReactElement {
   const programIndicators = useRecoilValue(programIndicatorStateDictionary);
 
   if (programIndicators.length === 0) {

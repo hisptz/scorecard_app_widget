@@ -11,8 +11,9 @@ import {
   DataTableCell,
   DataTableColumnHeader,
 } from "@dhis2/ui";
+import React from "react";
 
-export default function Legend(props) {
+export default function Legend(props:any):React.ReactElement {
   const legendSet = props?.legendSet;
 
   return (
@@ -40,11 +41,10 @@ export default function Legend(props) {
                   <DataTableCell bordered>{legend?.endValue}</DataTableCell>
                   <DataTableCell bordered>{legend?.startValue}</DataTableCell>
                   <td
-                    bordered
                     style={{
                       background: legend?.color,
                     }}
-                  ></td>
+                    bordered></td>
                 </DataTableRow>
               );
             })}

@@ -84,7 +84,7 @@ export default function MultipleFieldsField({
                     {!value?.[index]?.isDefault && (
                       <Button
                         disabled={index === 0 && fields.length === 1}
-                        icon={<DeleteIcon />}
+                        // icon={<DeleteIcon />}
                         onClick={() => onDeleteField(field, index)}
                       >
                         Delete

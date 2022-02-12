@@ -16,7 +16,7 @@ const appConfig: any = {
 }
 ReactDOM.render(
     <React.StrictMode>
-        <Provider config={appConfig}>
+       <Provider config={appConfig}>
             <DataProvider>
                 <DataStoreProvider
                     namespace={DATASTORE_NAMESPACE}
