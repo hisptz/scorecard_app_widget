@@ -117,45 +117,6 @@ export default function ScorecardList() {
               </div>
             </div>
             <div className="w-100">
-              <ButtonStrip end>
-                <DropdownButton
-                  type="button"
-                  component={<HelpMenu />}
-                  icon={<HelpIcon />}
-                >
-                  {i18n.t("Help")}
-                </DropdownButton>
-                <Tooltip
-                  content={i18n.t("Switch to {{viewType}} view", {
-                    viewType:
-                      scorecardViewType === "grid"
-                        ? i18n.t("list")
-                        : i18n.t("grid"),
-                  })}
-                >
-                  <Button
-                    onClick={onViewChange}
-                    className="change-view-button"
-                    dataTest="scorecard-view-orientation"
-                    icon={
-                      scorecardViewType === "grid" ? (
-                        <ListViewIcon />
-                      ) : (
-                        <GridViewIcon />
-                      )
-                    }
-                  />
-                </Tooltip>
-                <Button
-                  dataTest="new-scorecard-button"
-                  className="add-scorecard-button"
-                  onClick={onAddClick}
-                  primary
-                  icon={<AddIcon />}
-                >
-                  {i18n.t("Add New Scorecard")}
-                </Button>
-              </ButtonStrip>
             </div>
           </div>
           {isEmpty(filteredScorecards) ? (

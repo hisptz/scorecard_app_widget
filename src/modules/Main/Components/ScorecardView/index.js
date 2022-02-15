@@ -16,9 +16,7 @@ import {FullPageLoader} from "../../../../shared/Components/Loaders";
 import AccessDeniedPage from "./Components/AccessDeniedPage";
 import EmptyOrgUnitsOrPeriod from "./Components/EmptyOrgUnitsOrPeriod";
 import HighlightedIndicatorsView from "./Components/HighlightedIndicatorsView";
-import ScorecardActions from "./Components/ScorecardActions";
 import ScorecardHeader from "./Components/ScorecardHeader";
-import ScorecardViewHeader from "./Components/ScorecardViewHeader";
 
 const ScorecardLegendsView = lazy(() =>
     import("./Components/ScorecardLegendsView")
