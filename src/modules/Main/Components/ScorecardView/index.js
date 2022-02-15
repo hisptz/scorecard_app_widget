@@ -63,17 +63,12 @@ export default function ScorecardView() {
 
     return (
         <Suspense fallback={<FullPageLoader/>}>
-            <ScorecardViewHeader/>
             <Suspense fallback={<FullPageLoader/>}>
                 <div
                     ref={downloadRef}
                     className="column p-16"
                     style={{height: "100%", width: "100%", overflow: "auto"}}
                 >
-                    <ScorecardActions
-                        dataEngine={initialDataEngine}
-                        downloadAreaRef={downloadRef}
-                    />
                     <ScorecardHeader/>
                     <ScorecardLegendsView/>
                     <HighlightedIndicatorsView/>
