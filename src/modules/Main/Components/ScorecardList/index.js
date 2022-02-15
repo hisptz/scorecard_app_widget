@@ -1,11 +1,6 @@
 import { useAlert } from "@dhis2/app-runtime";
-import { useSetting } from "@dhis2/app-service-datastore";
 import i18n from "@dhis2/d2-i18n";
-import { Button, ButtonStrip, DropdownButton, Input, Tooltip } from "@dhis2/ui";
-import AddIcon from "@material-ui/icons/Add";
-import HelpIcon from "@material-ui/icons/Help";
-import ListViewIcon from "@material-ui/icons/Reorder";
-import GridViewIcon from "@material-ui/icons/ViewModule";
+import { Input } from "@dhis2/ui";
 import { Steps } from "intro.js-react";
 import { debounce, isEmpty } from "lodash";
 import React, { Suspense, useEffect, useRef, useState } from "react";
@@ -28,7 +23,6 @@ import { FullPageLoader } from "../../../../shared/Components/Loaders";
 import EmptyScoreCardList from "../EmptyScoreCardList";
 import EmptySearchList from "./Components/EmptySearchList";
 import GridScorecardDisplay from "./Components/GridScorecardDisplay";
-import HelpMenu from "./Components/HelpMenu";
 import ListScorecardDisplay from "./Components/ListScorecardDisplay";
 import PaginatedDisplay from "./Components/PaginatedDisplay";
 
