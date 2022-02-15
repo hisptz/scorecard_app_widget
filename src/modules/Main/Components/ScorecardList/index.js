@@ -31,7 +31,8 @@ export default function ScorecardList() {
   const setRoute = useSetRecoilState(RouterState);
   const [helpEnabled, setHelpEnabled] = useRecoilState(HelpState);
   const history = useHistory();
-  const [scorecardViewType, { set }] = useSetting("scorecardViewType");
+  // const [scorecardViewType, { set }] = useSetting("scorecardViewType");
+  const scorecardViewType = "list";
   const scorecards = useRecoilValue(ScorecardSummaryState);
   const [keyword, setKeyword] = useState();
   const [filteredScorecards, setFilteredScorecards] = useState(scorecards);
@@ -41,18 +42,18 @@ export default function ScorecardList() {
   );
 
   const onViewChange = () => {
-    try {
-      if (scorecardViewType === "grid") {
-        set("list");
-        return;
-      }
-      set("grid");
-    } catch (e) {
-      show({
-        message: e.message ?? e.toString(),
-        type: { critical: true },
-      });
-    }
+    // try {
+    //   if (scorecardViewType === "grid") {
+    //     // set("list");
+    //     return;
+    //   }
+    //   // set("grid");
+    // } catch (e) {
+    //   show({
+    //     message: e.message ?? e.toString(),
+    //     type: { critical: true },
+    //   });
+    // }
   };
 
   const onSearch = useRef(
