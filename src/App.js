@@ -30,8 +30,7 @@ return    <DataStoreProvider
                 <ErrorBoundary FallbackComponent={FullPageError}>
                     <ConfirmDialogProvider>
                         <Suspense fallback={<FullPageLoader/>}>
-                            <div className="main-container">
-                                
+                            <div className="main-container">                               
                                 <Router/>
                             </div>
                         </Suspense>
