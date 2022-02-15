@@ -37,7 +37,7 @@ const render = baseUrl =>
     ReactDOM.render(
         <Provider
                 config={{
-                    baseUrl: "http://localhost:8081",
+                    baseUrl: baseUrl,
                     apiVersion: 34,
                 }}
             >
