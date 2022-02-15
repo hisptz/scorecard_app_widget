@@ -34,6 +34,7 @@ export default function ScorecardList() {
   // const [scorecardViewType, { set }] = useSetting("scorecardViewType");
   const scorecardViewType = "list";
   const scorecards = useRecoilValue(ScorecardSummaryState);
+  const [dashboardId, setDashboardId] = useState("");
   const [keyword, setKeyword] = useState();
   const [filteredScorecards, setFilteredScorecards] = useState(scorecards);
   const { show } = useAlert(
@@ -89,6 +90,13 @@ export default function ScorecardList() {
   const onHelpExit = () => {
     setHelpEnabled(false);
   };
+  useEffect(()=>{
+    var dashboardItemId = (/[?&]dashboardItemId=([a-zA-Z0-9]{11})(?:&|$)/g
+    .exec(window.location.search) || [undefined]).pop();
+    if(dashboardItemId){
+      setDashboardId(dashboardId);
+    }
+  },[dashboardId])
 
   return (
     <Suspense fallback={<FullPageLoader />}>
@@ -99,9 +107,10 @@ export default function ScorecardList() {
         onExit={onHelpExit}
         initialStep={0}
       />
-      {isEmpty(scorecards) ? (
+      {isEmpty(scorecards) && dashboardId != "" ? (
         <EmptyScoreCardList />
-      ) : (
+      ) : 
+      (
         <div className="column h-100">
           <div className="row p-16">
             <div className="row p-45 center" style={{ paddingLeft: "35%" }}>
@@ -135,7 +144,8 @@ export default function ScorecardList() {
             />
           )}
         </div>
-      )}
+      )
+      }
     </Suspense>
   );
 }
