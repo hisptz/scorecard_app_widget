@@ -17,7 +17,7 @@ export default function DeleteConfirmation({
 }) {
   return (
     <Modal dataTest="delete-confirm-modal" onClose={onCancel}>
-      <ModalTitle>Delete Confirmation</ModalTitle>
+      <ModalTitle>Select Confirmation</ModalTitle>
       <ModalContent>
         {component
           ? component
@@ -28,8 +28,8 @@ export default function DeleteConfirmation({
       <ModalActions>
         <ButtonStrip>
           <Button onClick={onCancel}>{i18n.t("Cancel")}</Button>
-          <Button dataTest={"delete-confirm-button"} destructive onClick={onConfirm}>
-            {i18n.t("Delete")}
+          <Button dataTest={"delete-confirm-button"} primary onClick={onConfirm}>
+            {i18n.t("Select")}
           </Button>
         </ButtonStrip>
       </ModalActions>

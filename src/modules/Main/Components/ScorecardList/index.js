@@ -1,11 +1,6 @@
 import { useAlert } from "@dhis2/app-runtime";
-import { useSetting } from "@dhis2/app-service-datastore";
 import i18n from "@dhis2/d2-i18n";
-import { Button, ButtonStrip, DropdownButton, Input, Tooltip } from "@dhis2/ui";
-import AddIcon from "@material-ui/icons/Add";
-import HelpIcon from "@material-ui/icons/Help";
-import ListViewIcon from "@material-ui/icons/Reorder";
-import GridViewIcon from "@material-ui/icons/ViewModule";
+import { Input } from "@dhis2/ui";
 import { Steps } from "intro.js-react";
 import { debounce, isEmpty } from "lodash";
 import React, { Suspense, useEffect, useRef, useState } from "react";
@@ -28,7 +23,6 @@ import { FullPageLoader } from "../../../../shared/Components/Loaders";
 import EmptyScoreCardList from "../EmptyScoreCardList";
 import EmptySearchList from "./Components/EmptySearchList";
 import GridScorecardDisplay from "./Components/GridScorecardDisplay";
-import HelpMenu from "./Components/HelpMenu";
 import ListScorecardDisplay from "./Components/ListScorecardDisplay";
 import PaginatedDisplay from "./Components/PaginatedDisplay";
 
@@ -37,7 +31,8 @@ export default function ScorecardList() {
   const setRoute = useSetRecoilState(RouterState);
   const [helpEnabled, setHelpEnabled] = useRecoilState(HelpState);
   const history = useHistory();
-  const [scorecardViewType, { set }] = useSetting("scorecardViewType");
+  // const [scorecardViewType, { set }] = useSetting("scorecardViewType");
+  const scorecardViewType = "list";
   const scorecards = useRecoilValue(ScorecardSummaryState);
   const [keyword, setKeyword] = useState();
   const [filteredScorecards, setFilteredScorecards] = useState(scorecards);
@@ -47,18 +42,18 @@ export default function ScorecardList() {
   );
 
   const onViewChange = () => {
-    try {
-      if (scorecardViewType === "grid") {
-        set("list");
-        return;
-      }
-      set("grid");
-    } catch (e) {
-      show({
-        message: e.message ?? e.toString(),
-        type: { critical: true },
-      });
-    }
+    // try {
+    //   if (scorecardViewType === "grid") {
+    //     // set("list");
+    //     return;
+    //   }
+    //   // set("grid");
+    // } catch (e) {
+    //   show({
+    //     message: e.message ?? e.toString(),
+    //     type: { critical: true },
+    //   });
+    // }
   };
 
   const onSearch = useRef(
@@ -122,45 +117,6 @@ export default function ScorecardList() {
               </div>
             </div>
             <div className="w-100">
-              <ButtonStrip end>
-                <DropdownButton
-                  type="button"
-                  component={<HelpMenu />}
-                  icon={<HelpIcon />}
-                >
-                  {i18n.t("Help")}
-                </DropdownButton>
-                <Tooltip
-                  content={i18n.t("Switch to {{viewType}} view", {
-                    viewType:
-                      scorecardViewType === "grid"
-                        ? i18n.t("list")
-                        : i18n.t("grid"),
-                  })}
-                >
-                  <Button
-                    onClick={onViewChange}
-                    className="change-view-button"
-                    dataTest="scorecard-view-orientation"
-                    icon={
-                      scorecardViewType === "grid" ? (
-                        <ListViewIcon />
-                      ) : (
-                        <GridViewIcon />
-                      )
-                    }
-                  />
-                </Tooltip>
-                <Button
-                  dataTest="new-scorecard-button"
-                  className="add-scorecard-button"
-                  onClick={onAddClick}
-                  primary
-                  icon={<AddIcon />}
-                >
-                  {i18n.t("Add New Scorecard")}
-                </Button>
-              </ButtonStrip>
             </div>
           </div>
           {isEmpty(filteredScorecards) ? (

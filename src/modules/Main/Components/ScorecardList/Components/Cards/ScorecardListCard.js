@@ -97,36 +97,22 @@ export default function ScorecardListCard({scorecard, grid}) {
                 </div>
                 <div style={{margin: "0 8px"}}>
                     <ButtonStrip middle>
-                        <Button onClick={onView}>{i18n.t("View")}</Button>
-                        {write && (
-                            <Button
-                                dataTest={"edit-scorecard-button"}
-                                onClick={function (_, e) {
-                                    e.stopPropagation();
-                                    onEdit();
-                                }}
-                            >
-                                {i18n.t("Edit")}
-                            </Button>
-                        )}
-                        {deletePermission && (
-                            <Button
-                                dataTest="scorecard-delete-button"
+                    <Button
+                                dataTest="scorecard-select-button"
                                 onClick={function (_, e) {
                                     e.stopPropagation();
                                     setDeleteConfirmOpen(true);
                                 }}
                             >
-                                {i18n.t("Delete")}
+                                {i18n.t("Select")}
                             </Button>
-                        )}
                     </ButtonStrip>
                 </div>
                 {deleteConfirmOpen && (
                     <DeleteConfirmation
                         component={
                             <p>
-                                {i18n.t("Are you sure you want to delete scorecard ")}:
+                                {i18n.t("Are you sure you want to select scorecard ")}:
                                 <b>{title}</b>
                             </p>
                         }
@@ -184,35 +170,24 @@ export default function ScorecardListCard({scorecard, grid}) {
                 </div>
                 <div className="row end">
                     <ButtonStrip middle>
-                        <Button onClick={onView}>{i18n.t("View")}</Button>
-                        {write && (
-                            <Button
-                                dataTest={"edit-scorecard-button"}
-                                onClick={function (_, e) {
-                                    e.stopPropagation();
-                                    onEdit();
-                                }}
-                            >
-                                {i18n.t("Edit")}
-                            </Button>
-                        )}
-                        {deletePermission && (
-                            <Button
+                    <Button
                                 dataTest="scorecard-delete-button"
                                 onClick={function (_, e) {
                                     e.stopPropagation();
+                                    /**
+                                     * Todo: Save this scorecard reference into a datastore
+                                     */
                                     setDeleteConfirmOpen(true);
                                 }}
                             >
-                                {i18n.t("Delete")}
+                                {i18n.t("Select")}
                             </Button>
-                        )}
                     </ButtonStrip>
                     {deleteConfirmOpen && (
                         <DeleteConfirmation
                             component={
                                 <p>
-                                    {i18n.t("Are you sure you want to delete scorecard")}:
+                                    {i18n.t("Are you sure you want to select scorecard")}:
                                     <b>{title}</b>
                                 </p>
                             }
