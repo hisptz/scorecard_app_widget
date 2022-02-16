@@ -16,14 +16,15 @@ const loadQuery ={
 }
 
 
-const addWidgetMutation = {
-    type: "create",
-    resource: `${DATASTORE_SCORECARD_WIDGET}`,
-    id:({id}) =>id,
-    data: ({ data }) => data,
-  };
 
 
+function generateAddWidgetMutation (id){
+    return {
+        type: "create",
+        resource: `${DATASTORE_SCORECARD_WIDGET}/${id}`,
+        data: ({ data }) => data,
+      }
+}
 export  async function loadAll(engine) {
     try {
         const response = await engine.query(loadAllQuery);
@@ -45,20 +46,15 @@ export  async function load(id = "", engine) {
     }
     return { error: "not found" };
 }
-// let widget = {
-//     dashboardId:this.current_dashboard_item,
-//     scoreCardId:this.selected_scorecard,
-//     periodType:this.period_type,
-//     period:this.period,
-//     organisation_unit:this.orgunit_model
-//   };
-//   let scoreCardWidget = {
-//     id: this.current_dashboard_item,
-//     data: widget
-//   };
-export async function createWidget(widget,scoreCardid,engine) {
+
+export async function createWidget(widget,dashboardId,engine) {
+    const addWidgetMutation = {
+        type: "create",
+        resource: `${DATASTORE_SCORECARD_WIDGET}/${dashboardId}`,
+        data: ({ data }) => data,
+      };
     try {
-        const response = await engine.mutate(addWidgetMutation, { variables: { data: widget,id: scoreCardid } });
+        const response = await engine.mutate(addWidgetMutation, { variables: { data: widget} });
         return { widget: response };
     } catch (e) {
         return { error: e };
