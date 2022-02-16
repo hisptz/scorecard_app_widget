@@ -1,12 +1,12 @@
 {
-    "name": "dashboard-app-skeleton",
-    "description": "This repository can be used as a foundation to create DHIS2 dashboard apps.",
+    "name": "hisptz-scorecard-widget",
+    "description": "Scorecard widget for the interactive scorecard app",
     "homepage": ".",
-    "version": "0.1.0",
+    "version": "2.5.0",
     "private": true,
     "developer": {
         "name": "Hisp Tanzania",
-        "url": "Interactive Scorecard Application"
+        "url": "https://hisptanzania.org"
     },
     "icons": {
         "16": "favicon-16x16.png",
@@ -14,7 +14,7 @@
         "48": "favicon-48x48.png"
     },
     "manifest.webapp": {
-        "name": "hisptz-scorecard-dashboard",
+        "name": "Interactive Scorecard Widget",
         "description": "Score card widget",
         "appType": "DASHBOARD_WIDGET",
         "activities": {
