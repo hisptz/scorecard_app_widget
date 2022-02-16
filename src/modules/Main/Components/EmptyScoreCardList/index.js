@@ -41,17 +41,8 @@ export default function EmptyScoreCardList() {
                 position: "relative",
               }}
             >
-              {i18n.t("Create a scorecard instantly, over tea break")}...
+              {i18n.t("Create a scorecard availables ")}...
             </p>
-          </div>
-          <div className="pt-16">
-            <Button
-              onClick={onNewScorecardClick}
-              dataTest={"new-scorecard-button"}
-              primary
-            >
-              {i18n.t("New Scorecard")}
-            </Button>
           </div>
         </div>
       </div>

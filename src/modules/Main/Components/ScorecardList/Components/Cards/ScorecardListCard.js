@@ -6,17 +6,22 @@ import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import RouterState from "../../../../../../core/state/router";
+import {createWidget} from "../../../../../../core/services/widgetservice";
 import {UserAuthorityOnScorecard} from "../../../../../../core/state/user";
+import {scoreCardWidgetState} from "../../../../../../core/state/scorecardWidget";
 import holderImage from "../../../../../../resources/images/img.png";
 import DeleteConfirmation from "../../../../../../shared/Components/DeleteConfirmation";
 import {useDeleteScorecard} from "../../../../../../shared/hooks/datastore/useScorecard";
 import {truncateDescription} from "../../../../../../shared/utils/utils";
+import { EngineState } from "../../../../../../core/state/engine";
 
 export default function ScorecardListCard({scorecard, grid}) {
     const setRoute = useSetRecoilState(RouterState);
+    const useCurrentDashboardIdState = useRecoilValue(scoreCardWidgetState);
     const {write, delete: deletePermission} = useRecoilValue(
         UserAuthorityOnScorecard(scorecard?.id)
     );
+    const engineState = useRecoilValue(EngineState);
     const {title, description, id} = scorecard;
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
     const [showFullDescription, setShowFullDescription] = useState(false);
@@ -57,12 +62,32 @@ export default function ScorecardListCard({scorecard, grid}) {
         }
     };
 
+    const onCreateWidget = async ()=>{
+        let scoreCardWidget = {
+            dashboardId:useCurrentDashboardIdState,
+            scoreCardId:id,
+            periodType:"",
+            period:"",
+            organisation_unit:"",
+          };
+
+        return await createWidget(scoreCardWidget,useCurrentDashboardIdState,engineState).then((response)=>{
+            if(response['widget']['httpStatusCode'] >= 200 &&  response['widget']['httpStatusCode'] <=205)
+            {
+              return  onView();
+            }
+            else{
+            return window.reload()   
+            }
+        })
+    }
+
     return grid ? (
         <div
             className="container-bordered p-16 "
             data-test="scorecard-thumbnail-view"
             style={{margin: 16, background: "white"}}
-            onClick={onView}
+            // onClick={onView}
         >
             <div className="column space-between h-100">
                 <div className="text-center p-8">
@@ -97,36 +122,22 @@ export default function ScorecardListCard({scorecard, grid}) {
                 </div>
                 <div style={{margin: "0 8px"}}>
                     <ButtonStrip middle>
-                        <Button onClick={onView}>{i18n.t("View")}</Button>
-                        {write && (
-                            <Button
-                                dataTest={"edit-scorecard-button"}
-                                onClick={function (_, e) {
-                                    e.stopPropagation();
-                                    onEdit();
-                                }}
-                            >
-                                {i18n.t("Edit")}
-                            </Button>
-                        )}
-                        {deletePermission && (
-                            <Button
-                                dataTest="scorecard-delete-button"
+                    <Button
+                                dataTest="scorecard-select-button"
                                 onClick={function (_, e) {
                                     e.stopPropagation();
                                     setDeleteConfirmOpen(true);
                                 }}
                             >
-                                {i18n.t("Delete")}
+                                {i18n.t("Select")}
                             </Button>
-                        )}
                     </ButtonStrip>
                 </div>
                 {deleteConfirmOpen && (
                     <DeleteConfirmation
                         component={
                             <p>
-                                {i18n.t("Are you sure you want to delete scorecard ")}:
+                                {i18n.t("Are you sure you want to select scorecard ")}:
                                 <b>{title}</b>
                             </p>
                         }
@@ -147,7 +158,6 @@ export default function ScorecardListCard({scorecard, grid}) {
             data-test="scorecard-thumbnail-view"
             className="container-bordered p-32"
             style={{margin: 16, background: "white"}}
-            onClick={onView}
         >
             <div className="row space-between align-items-center">
                 <div className="row align-items-center">
@@ -184,41 +194,27 @@ export default function ScorecardListCard({scorecard, grid}) {
                 </div>
                 <div className="row end">
                     <ButtonStrip middle>
-                        <Button onClick={onView}>{i18n.t("View")}</Button>
-                        {write && (
-                            <Button
-                                dataTest={"edit-scorecard-button"}
-                                onClick={function (_, e) {
-                                    e.stopPropagation();
-                                    onEdit();
-                                }}
-                            >
-                                {i18n.t("Edit")}
-                            </Button>
-                        )}
-                        {deletePermission && (
-                            <Button
+                    <Button
                                 dataTest="scorecard-delete-button"
                                 onClick={function (_, e) {
-                                    e.stopPropagation();
+                                    e.stopPropagation();                                    
                                     setDeleteConfirmOpen(true);
                                 }}
                             >
-                                {i18n.t("Delete")}
+                                {i18n.t("Select")}
                             </Button>
-                        )}
                     </ButtonStrip>
                     {deleteConfirmOpen && (
                         <DeleteConfirmation
                             component={
                                 <p>
-                                    {i18n.t("Are you sure you want to delete scorecard")}:
+                                    {i18n.t("Are you sure you want to select scorecard")}:
                                     <b>{title}</b>
                                 </p>
                             }
                             onConfirm={function (_, e) {
                                 e.stopPropagation();
-                                onDelete();
+                                onCreateWidget()
                             }}
                             onCancel={function (_, e) {
                                 e.stopPropagation();
