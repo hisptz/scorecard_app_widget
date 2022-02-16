@@ -74,11 +74,6 @@ export default function ScorecardList() {
     }
   }, [keyword, scorecards]);
 
-  const onAddClick = () => {
-    resetScorecardIdState();
-    setRoute((prevRoute) => ({ ...prevRoute, previous: `/` }));
-    history.push("/add");
-  };
 
   const onHelpExit = () => {
     setHelpEnabled(false);
