@@ -62,12 +62,34 @@ export default function ScorecardListCard({scorecard, grid}) {
         }
     };
 
+    const onCreateWidget = async ()=>{
+        console.log("individual scorecard dashboard id  ",useCurrentDashboardIdState)
+        let scoreCardWidget = {
+            dashboardId:useCurrentDashboardIdState,
+            scoreCardId:id,
+            periodType:"Daily",
+            period:"Last 7 days",
+            organisation_unit:"",
+          };
+
+        return await createWidget(scoreCardWidget,useCurrentDashboardIdState,engineState).then((response)=>{
+            console.log("response is ",response)
+            if(response['widget']['httpStatusCode'] >= 200 &&  response['widget']['httpStatusCode'] <=205)
+            {
+              return  onView();
+            }
+            else{
+            return window.reload()   
+            }
+        })
+    }
+
     return grid ? (
         <div
             className="container-bordered p-16 "
             data-test="scorecard-thumbnail-view"
             style={{margin: 16, background: "white"}}
-            onClick={onView}
+            // onClick={onView}
         >
             <div className="column space-between h-100">
                 <div className="text-center p-8">
@@ -138,7 +160,6 @@ export default function ScorecardListCard({scorecard, grid}) {
             data-test="scorecard-thumbnail-view"
             className="container-bordered p-32"
             style={{margin: 16, background: "white"}}
-            onClick={onView}
         >
             <div className="row space-between align-items-center">
                 <div className="row align-items-center">
@@ -178,10 +199,7 @@ export default function ScorecardListCard({scorecard, grid}) {
                     <Button
                                 dataTest="scorecard-delete-button"
                                 onClick={function (_, e) {
-                                    e.stopPropagation();
-                                    /**
-                                     * Todo: Save this scorecard reference into a datastore
-                                     */
+                                    e.stopPropagation();                                    
                                     setDeleteConfirmOpen(true);
                                 }}
                             >
@@ -198,7 +216,7 @@ export default function ScorecardListCard({scorecard, grid}) {
                             }
                             onConfirm={function (_, e) {
                                 e.stopPropagation();
-                                onDelete();
+                                onCreateWidget()
                             }}
                             onCancel={function (_, e) {
                                 e.stopPropagation();
