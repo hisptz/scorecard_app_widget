@@ -6,17 +6,22 @@ import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import RouterState from "../../../../../../core/state/router";
+import {createWidget} from "../../../../../../core/services/widgetservice";
 import {UserAuthorityOnScorecard} from "../../../../../../core/state/user";
+import {scoreCardWidgetState} from "../../../../../../core/state/scorecardWidget";
 import holderImage from "../../../../../../resources/images/img.png";
 import DeleteConfirmation from "../../../../../../shared/Components/DeleteConfirmation";
 import {useDeleteScorecard} from "../../../../../../shared/hooks/datastore/useScorecard";
 import {truncateDescription} from "../../../../../../shared/utils/utils";
+import { EngineState } from "../../../../../../core/state/engine";
 
 export default function ScorecardListCard({scorecard, grid}) {
     const setRoute = useSetRecoilState(RouterState);
+    const useCurrentDashboardIdState = useRecoilValue(scoreCardWidgetState);
     const {write, delete: deletePermission} = useRecoilValue(
         UserAuthorityOnScorecard(scorecard?.id)
     );
+    const engineState = useRecoilValue(EngineState);
     const {title, description, id} = scorecard;
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
     const [showFullDescription, setShowFullDescription] = useState(false);
