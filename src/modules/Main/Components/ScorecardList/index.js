@@ -25,6 +25,8 @@ import EmptySearchList from "./Components/EmptySearchList";
 import GridScorecardDisplay from "./Components/GridScorecardDisplay";
 import ListScorecardDisplay from "./Components/ListScorecardDisplay";
 import PaginatedDisplay from "./Components/PaginatedDisplay";
+import {load} from "../../../../core/services/widgetservice";
+import { EngineState } from "../../../../core/state/engine";
 
 export default function ScorecardList() {
   const resetScorecardIdState = useResetRecoilState(ScorecardIdState);
@@ -37,6 +39,8 @@ export default function ScorecardList() {
   const [dashboardId, setDashboardId] = useState("");
   const [keyword, setKeyword] = useState();
   const [filteredScorecards, setFilteredScorecards] = useState(scorecards);
+ 
+  const engineState = useRecoilValue(EngineState);
   const { show } = useAlert(
     ({ message }) => message,
     ({ type }) => ({ ...type, duration: 3000 })
@@ -95,6 +99,9 @@ export default function ScorecardList() {
     .exec(window.location.search) || [undefined]).pop();
     if(dashboardItemId){
       setDashboardId(dashboardId);
+      load(dashboardItemId, engineState).then(({widget})=>{
+        console.log("response on widgets ",widget)
+      })
     }
   },[dashboardId])
 
