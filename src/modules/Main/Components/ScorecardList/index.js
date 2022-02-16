@@ -50,21 +50,6 @@ export default function ScorecardList() {
     ({ type }) => ({ ...type, duration: 3000 })
   );
 
-  const onViewChange = () => {
-    // try {
-    //   if (scorecardViewType === "grid") {
-    //     // set("list");
-    //     return;
-    //   }
-    //   // set("grid");
-    // } catch (e) {
-    //   show({
-    //     message: e.message ?? e.toString(),
-    //     type: { critical: true },
-    //   });
-    // }
-  };
-
   const onSearch = useRef(
     debounce((keyword) => {
       setFilteredScorecards(() => {
