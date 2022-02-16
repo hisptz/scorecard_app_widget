@@ -27,6 +27,7 @@ import ListScorecardDisplay from "./Components/ListScorecardDisplay";
 import PaginatedDisplay from "./Components/PaginatedDisplay";
 import {load} from "../../../../core/services/widgetservice";
 import { EngineState } from "../../../../core/state/engine";
+import {scoreCardWidgetState} from "../../../../core/state/scorecardWidget";
 
 export default function ScorecardList() {
   const resetScorecardIdState = useResetRecoilState(ScorecardIdState);
@@ -36,9 +37,12 @@ export default function ScorecardList() {
   // const [scorecardViewType, { set }] = useSetting("scorecardViewType");
   const scorecardViewType = "list";
   const scorecards = useRecoilValue(ScorecardSummaryState);
+  const [dashboardAvailabe, setDashboardAvailable] = useState(false);
   const [dashboardId, setDashboardId] = useState("");
+  const setCurrentDashboardId = useSetRecoilState(scoreCardWidgetState);
   const [keyword, setKeyword] = useState();
   const [filteredScorecards, setFilteredScorecards] = useState(scorecards);
+  const [isLoading, setIsLoading] = useState(false);
  
   const engineState = useRecoilValue(EngineState);
   const { show } = useAlert(
@@ -95,18 +99,31 @@ export default function ScorecardList() {
     setHelpEnabled(false);
   };
   useEffect(()=>{
+    setIsLoading(true)
     var dashboardItemId = (/[?&]dashboardItemId=([a-zA-Z0-9]{11})(?:&|$)/g
     .exec(window.location.search) || [undefined]).pop();
     if(dashboardItemId){
       setDashboardId(dashboardId);
+      setCurrentDashboardId(dashboardItemId);
       load(dashboardItemId, engineState).then(({widget})=>{
-        console.log("response on widgets ",widget)
+        if(widget !== undefined){
+          let scorecardId = widget['scoreCardId'];
+          setDashboardAvailable(true)
+          setRoute((prevRoute) => ({...prevRoute, previous: `/`}));
+          setIsLoading(false);
+          return  history.push(`/view/${scorecardId}`);
+        }else{
+          setDashboardAvailable(false);
+          setIsLoading(false);
+        }
       })
     }
   },[dashboardId])
 
   return (
+    
     <Suspense fallback={<FullPageLoader />}>
+      {isLoading && <FullPageLoader />}
       <Steps
         options={STEP_OPTIONS}
         enabled={helpEnabled}
@@ -114,43 +131,44 @@ export default function ScorecardList() {
         onExit={onHelpExit}
         initialStep={0}
       />
-      {isEmpty(scorecards) && dashboardId != "" ? (
+      {isEmpty(scorecards) && dashboardId != "" && ! dashboardAvailabe ? (
         <EmptyScoreCardList />
       ) : 
-      (
-        <div className="column h-100">
-          <div className="row p-16">
-            <div className="row p-45 center" style={{ paddingLeft: "35%" }}>
-              <div className="column w-30">
-                <Input
-                  className="search-input"
-                  value={keyword}
-                  onChange={({ value }) => {
-                    setKeyword(value);
-                  }}
-                  placeholder={i18n.t("Search")}
-                />
-              </div>
-            </div>
-            <div className="w-100">
-            </div>
-          </div>
-          {isEmpty(filteredScorecards) ? (
-            <div className="flex-1">
-              <EmptySearchList keyword={keyword} />
-            </div>
-          ) : (
-            <PaginatedDisplay
-              scorecards={filteredScorecards}
-              pageSize={scorecardViewType === "grid" ? 8 : 5}
-              listComponent={
-                scorecardViewType === "grid"
-                  ? GridScorecardDisplay
-                  : ListScorecardDisplay
-              }
+     !isLoading && !dashboardAvailabe && (
+      <div className="column h-100">
+      <div className="row p-16">
+        <div className="row p-45 center" style={{ paddingLeft: "35%" }}>
+          <div className="column w-30">
+            <Input
+              className="search-input"
+              value={keyword}
+              onChange={({ value }) => {
+                setKeyword(value);
+              }}
+              placeholder={i18n.t("Search")}
             />
-          )}
+          </div>
         </div>
+        <div className="w-100">
+        </div>
+      </div>
+      {isEmpty(filteredScorecards) ? (
+        <div className="flex-1">
+          <EmptySearchList keyword={keyword} />
+        </div>
+      ) : (
+        <PaginatedDisplay
+          scorecards={filteredScorecards}
+          pageSize={scorecardViewType === "grid" ? 8 : 5}
+          listComponent={
+            scorecardViewType === "grid"
+              ? GridScorecardDisplay
+              : ListScorecardDisplay
+          }
+        />
+      )}
+    </div>
+       
       )
       }
     </Suspense>
