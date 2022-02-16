@@ -9,8 +9,6 @@ import Main from "../Main/index";
 import ScorecardView from "../Main/Components/ScorecardView/index";
 
 
-
-
 const pages = [
     {
         pathname: "/view/:id",
