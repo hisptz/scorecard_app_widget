@@ -63,17 +63,15 @@ export default function ScorecardListCard({scorecard, grid}) {
     };
 
     const onCreateWidget = async ()=>{
-        console.log("individual scorecard dashboard id  ",useCurrentDashboardIdState)
         let scoreCardWidget = {
             dashboardId:useCurrentDashboardIdState,
             scoreCardId:id,
-            periodType:"Daily",
-            period:"Last 7 days",
+            periodType:"",
+            period:"",
             organisation_unit:"",
           };
 
         return await createWidget(scoreCardWidget,useCurrentDashboardIdState,engineState).then((response)=>{
-            console.log("response is ",response)
             if(response['widget']['httpStatusCode'] >= 200 &&  response['widget']['httpStatusCode'] <=205)
             {
               return  onView();
