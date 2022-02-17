@@ -11,7 +11,7 @@
     "icons": {
         "16": "favicon-16x16.png",
         "32": "favicon-32x32.png",
-        "48": "favicon-48x48.png"
+        "48": "dhis2-app-icon.png"
     },
     "manifest.webapp": {
         "name": "Interactive Scorecard Widget",
