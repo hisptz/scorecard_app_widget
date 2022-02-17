@@ -4,7 +4,7 @@ import React from "react";
 
 export default function FullPageLoader({text, small}) {
     return (
-        <div className="column center" style={{height: "100%", width: '100%'}}>
+        <div className="column center" style={{height: "100%", width: '100%',paddingTop:'50%'}}>
             <CenteredContent>
                 <div>
                     <CircularLoader small={small}/>
