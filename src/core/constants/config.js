@@ -4,6 +4,10 @@ export const DATASTORE_ENDPOINT = "dataStore/hisptz-scorecard";
 export const DATASTORE_WIDGET_NAMESPACE ="hisptz-scorecardwidget";
 export const DATASTORE_SCORECARD_SUMMARY_KEY = "scorecard-summary";
 export const DATASTORE_SCORECARD_WIDGET = "dataStore/hisptz-scorecardwidget";
+export const SCORECARD_APP_CONSTRUCTION = {
+  name: "hisptz-scorecard",
+  title: "Interactive Scorecard"
+};
 export const DATASTORE_SCORECARD_SUMMARY_INCLUDE_KEYS = [
   {
     key: "title",
