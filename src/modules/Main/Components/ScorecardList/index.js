@@ -117,7 +117,7 @@ export default function ScorecardList() {
      !isLoading && !dashboardAvailabe && (
       <div className="column h-100">
       <div className="row p-16">
-        <div className="row p-45 center" style={{ paddingLeft: "35%" }}>
+        <div className="row p-45 center" style={{ paddingLeft: "25%" }}>
           <div className="column w-30">
             <Input
               className="search-input"
