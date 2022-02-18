@@ -500,6 +500,7 @@ span.jsx-2694284040 {
 }
 
 .large-modal {
+    z-index: 999 !important;
     width: 75vw !important;
     height: 80vh !important;
 }

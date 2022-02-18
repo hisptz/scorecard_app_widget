@@ -5,7 +5,7 @@ import {ConfirmDialogProvider} from "@hisptz/react-ui";
 import React, {Suspense} from "react";
 import {ErrorBoundary} from "react-error-boundary";
 import {RecoilRoot} from "recoil";
-import {DATASTORE_NAMESPACE} from "./core/constants/config";
+import {DATASTORE_WIDGET_NAMESPACE} from "./core/constants/config";
 import useInitApp from "./core/hooks/useInitApp";
 import FullPageError from "./shared/Components/Errors/FullPageError";
 import {FullPageLoader} from "./shared/Components/Loaders";
@@ -22,7 +22,7 @@ export const App = () => {
     const {initializeState} = useInitApp();
 
 return    <DataStoreProvider
-            namespace={DATASTORE_NAMESPACE}
+            namespace={DATASTORE_WIDGET_NAMESPACE}
             loadingComponent={<FullPageLoader/>}
         >
             <CssReset/>
