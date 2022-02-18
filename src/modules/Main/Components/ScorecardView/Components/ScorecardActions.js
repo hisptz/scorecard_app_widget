@@ -13,6 +13,7 @@ import DownloadMenu from "./Download/Components/DownloadMenu";
 import useDownload from "./ScorecardViewHeader/hooks/useDownload";
 import {useConfig} from "@dhis2/app-runtime";
 import {constructAppUrl} from "../utils/constructUrl"
+import {SCORECARD_APP_CONSTRUCTION} from "../../../../../core/constants/config";
 
 export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     const setRoute = useSetRecoilState(RouterState);
@@ -25,7 +26,6 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     const userAuthority = useRecoilValue(UserAuthorityOnScorecard(scorecardId));
     const {serverVersion, baseUrl} = useConfig();
     const writeAccess = userAuthority?.write;
-    const history = useHistory();
 
     const onRefresh = useRecoilCallback(({reset, set}) => () => {
         set(ScorecardRequestId(scorecardId), prevValue => prevValue + 1)
@@ -33,7 +33,7 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     });
 
     const onEdit = () => {
-        if (true) {
+        if (writeAccess) {
             setRoute((prevRoute) => ({
                 ...prevRoute,
                 previous: `/view/${scorecardId}`,
@@ -41,30 +41,18 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
             console.log("history ",window.parent.location)
             console.log("server version",serverVersion)
    const appUrl =   constructAppUrl(baseUrl,{
-            name:"hisptz-Scorecard",
-            title:"Interactive Dashboard"
+    name: SCORECARD_APP_CONSTRUCTION['name'],
+    title: SCORECARD_APP_CONSTRUCTION['title']
         },serverVersion)
-console.log("app url ",appUrl)
-        return window.parent.location.href(appUrl + "/edit/" + scorecardId)
-        //window.parent.location.href("/edit/" + scorecardId);
-            // history.push(`/edit/${scorecardId}`);
+        return window.parent.open(appUrl + "#/edit/" + scorecardId)
         }
     };
-
-//     const baseUrl = async()=>{
-  
-// const [, apiVersion] = (await fetch(`${manifest.activities.dhis.href}/api/system/info.json`)
-// .then(res => res.json())
-// .then((systemInfo) => systemInfo.version))
-//     }
-
-
 
     return (
         <div className="row end print-hide">
             <div className="column align-items-end">
                 <ButtonStrip>
-                    {true && (
+                    {writeAccess && (
                         <Button
                             dataTest={"edit-scorecard-button"}
                             className="scorecard-view-edit-button"

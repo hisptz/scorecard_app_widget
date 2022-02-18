@@ -27,5 +27,4 @@ console.log("server version",serverVersion)
     const scheme = appUrl.substr(0, appUrl.indexOf('://') + 3)
     appUrl = scheme + appUrl.substr(scheme.length).replace(/\/+/g, '/')
     return appUrl
-
 }
