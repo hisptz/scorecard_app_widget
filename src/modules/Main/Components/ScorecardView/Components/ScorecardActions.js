@@ -11,6 +11,8 @@ import {UserAuthorityOnScorecard} from "../../../../../core/state/user";
 import ScorecardOptionsModal from "../../../../../shared/Components/ScorecardOptionsModal";
 import DownloadMenu from "./Download/Components/DownloadMenu";
 import useDownload from "./ScorecardViewHeader/hooks/useDownload";
+import {useConfig} from "@dhis2/app-runtime";
+import {constructAppUrl} from "../utils/constructUrl"
 
 export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     const setRoute = useSetRecoilState(RouterState);
@@ -21,6 +23,7 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     const {download: onDownload} = useDownload(downloadAreaRef, dataEngine);
     const scorecardId = useRecoilValue(ScorecardIdState);
     const userAuthority = useRecoilValue(UserAuthorityOnScorecard(scorecardId));
+    const {serverVersion, baseUrl} = useConfig();
     const writeAccess = userAuthority?.write;
     const history = useHistory();
 
