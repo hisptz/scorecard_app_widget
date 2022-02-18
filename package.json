@@ -14,7 +14,7 @@
         "48": "dhis2-app-icon.png"
     },
     "manifest.webapp": {
-        "name": "Interactive Scorecard Widget^Dev",
+        "name": "Interactive Scorecard Widget",
         "description": "Score card widget",
         "appType": "DASHBOARD_WIDGET",
         "activities": {
