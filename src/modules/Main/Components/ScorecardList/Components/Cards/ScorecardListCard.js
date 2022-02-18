@@ -165,7 +165,7 @@ export default function ScorecardListCard({scorecard, grid}) {
                         <img
                             alt="img"
                             src={holderImage}
-                            style={{height: 100, width: 200}}
+                            style={{height: 100, width: 80}}
                         />
                     </div>
                     <div className="column start">

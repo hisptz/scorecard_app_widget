@@ -5,11 +5,11 @@
     font-size: 1rem;
     overflow: auto;
     height: 100%;
-    min-width: 1240px;
+    /* min-width: 1240px; */
 }
 
-div.jsx-4084082020 {
-    z-index: 4000;
+div.jsx-2944291715 {
+    z-index: 4000 !important;
 }
 
 .popper {
@@ -500,6 +500,7 @@ span.jsx-2694284040 {
 }
 
 .large-modal {
+    z-index: 999 !important;
     width: 75vw !important;
     height: 80vh !important;
 }

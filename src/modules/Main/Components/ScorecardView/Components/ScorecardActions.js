@@ -11,6 +11,9 @@ import {UserAuthorityOnScorecard} from "../../../../../core/state/user";
 import ScorecardOptionsModal from "../../../../../shared/Components/ScorecardOptionsModal";
 import DownloadMenu from "./Download/Components/DownloadMenu";
 import useDownload from "./ScorecardViewHeader/hooks/useDownload";
+import {useConfig} from "@dhis2/app-runtime";
+import {constructAppUrl} from "../utils/constructUrl"
+import {SCORECARD_APP_CONSTRUCTION} from "../../../../../core/constants/config";
 
 export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     const setRoute = useSetRecoilState(RouterState);
@@ -21,8 +24,8 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     const {download: onDownload} = useDownload(downloadAreaRef, dataEngine);
     const scorecardId = useRecoilValue(ScorecardIdState);
     const userAuthority = useRecoilValue(UserAuthorityOnScorecard(scorecardId));
+    const {serverVersion, baseUrl} = useConfig();
     const writeAccess = userAuthority?.write;
-    const history = useHistory();
 
     const onRefresh = useRecoilCallback(({reset, set}) => () => {
         set(ScorecardRequestId(scorecardId), prevValue => prevValue + 1)
@@ -35,7 +38,13 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
                 ...prevRoute,
                 previous: `/view/${scorecardId}`,
             }));
-            history.push(`/edit/${scorecardId}`);
+            console.log("history ",window.parent.location)
+            console.log("server version",serverVersion)
+   const appUrl =   constructAppUrl(baseUrl,{
+    name: SCORECARD_APP_CONSTRUCTION['name'],
+    title: SCORECARD_APP_CONSTRUCTION['title']
+        },serverVersion)
+        return window.parent.open(appUrl + "#/edit/" + scorecardId)
         }
     };
 
@@ -43,13 +52,6 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
         <div className="row end print-hide">
             <div className="column align-items-end">
                 <ButtonStrip>
-                    <Button
-                        className="option-button"
-                        dataTest={"scorecard-option-button"}
-                        onClick={() => setOptionsOpen(true)}
-                    >
-                        {i18n.t("Options")}
-                    </Button>
                     {writeAccess && (
                         <Button
                             dataTest={"edit-scorecard-button"}
@@ -59,20 +61,6 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
                             {i18n.t("Edit")}
                         </Button>
                     )}
-                    <DropdownButton
-                        component={
-                            <DownloadMenu onClose={() => {
-                            }} onDownload={onDownload}/>
-                        }
-                        className="download-button"
-                        dataTest={"download-button"}
-                    >
-                        {i18n.t("Download")}
-                    </DropdownButton>
-
-                    <Button className="refresh-button" onClick={onRefresh}>
-                        {i18n.t("Refresh")}
-                    </Button>
                 </ButtonStrip>
             </div>
 

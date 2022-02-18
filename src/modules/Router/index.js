@@ -7,11 +7,13 @@ import FullPageError from "../../shared/Components/Errors/FullPageError";
 import {FullPageLoader} from "../../shared/Components/Loaders";
 import Main from "../Main/index";
 import ScorecardView from "../Main/Components/ScorecardView/index";
-
-
-
+import ScorecardMigration from "../Main/Components/ScorecardMigration";
 
 const pages = [
+    {
+        pathname: "/migrate",
+        component: ScorecardMigration,
+    },
     {
         pathname: "/view/:id",
         component: ScorecardView,

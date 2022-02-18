@@ -1,20 +1,20 @@
 {
-    "name": "dashboard-app-skeleton",
-    "description": "This repository can be used as a foundation to create DHIS2 dashboard apps.",
+    "name": "hisptz-scorecard-widget",
+    "description": "Scorecard widget for the interactive scorecard app",
     "homepage": ".",
-    "version": "0.1.0",
+    "version": "2.5.0^dev",
     "private": true,
     "developer": {
         "name": "Hisp Tanzania",
-        "url": "Interactive Scorecard Application"
+        "url": "https://hisptanzania.org"
     },
     "icons": {
         "16": "favicon-16x16.png",
         "32": "favicon-32x32.png",
-        "48": "favicon-48x48.png"
+        "48": "dhis2-app-icon.png"
     },
     "manifest.webapp": {
-        "name": "hisptz-scorecard-dashboard",
+        "name": "Interactive Scorecard Widget^Dev",
         "description": "Score card widget",
         "appType": "DASHBOARD_WIDGET",
         "activities": {
@@ -32,11 +32,10 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
-        "@dhis2/app-runtime": "^2.0.1",
+        "@dhis2/app-runtime": "^3.2.9",
         "@dhis2/app-service-datastore": "^1.0.0-alpha.2",
         "@dhis2/d2-i18n": "^1.1.0",
         "@dhis2/ui": "^7.16.1",
-        "@dhis2/ui-core": "^3.11.0",
         "@hisptz/react-ui": "^1.0.27",
         "@iapps/function-analytics": "^1.0.0-beta.24",
         "@material-ui/core": "^4.12.3",
@@ -61,6 +60,7 @@
         "react-web-vitals": "^1.0.1",
         "recoil": "^0.6.1",
         "rxjs": "^7.5.4",
+        "styled-jsx": "^5.0.0",
         "typeface-roboto": "^0.0.75",
         "xlsx": "^0.18.0"
     },
