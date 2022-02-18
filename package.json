@@ -2,7 +2,7 @@
     "name": "hisptz-scorecard-widget",
     "description": "Scorecard widget for the interactive scorecard app",
     "homepage": ".",
-    "version": "2.5.0^Testing",
+    "version": "2.5.0^dev",
     "private": true,
     "developer": {
         "name": "Hisp Tanzania",
@@ -14,7 +14,7 @@
         "48": "dhis2-app-icon.png"
     },
     "manifest.webapp": {
-        "name": "Interactive Scorecard Widget",
+        "name": "Interactive Scorecard Widget^Dev",
         "description": "Score card widget",
         "appType": "DASHBOARD_WIDGET",
         "activities": {
@@ -32,7 +32,7 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
-        "@dhis2/app-runtime": "^2.0.1",
+        "@dhis2/app-runtime": "^3.2.9",
         "@dhis2/app-service-datastore": "^1.0.0-alpha.2",
         "@dhis2/d2-i18n": "^1.1.0",
         "@dhis2/ui": "^7.16.1",
