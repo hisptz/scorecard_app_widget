@@ -17,6 +17,8 @@ import AccessDeniedPage from "./Components/AccessDeniedPage";
 import EmptyOrgUnitsOrPeriod from "./Components/EmptyOrgUnitsOrPeriod";
 import HighlightedIndicatorsView from "./Components/HighlightedIndicatorsView";
 import ScorecardHeader from "./Components/ScorecardHeader";
+import ScorecardActions from "./Components/ScorecardActions";
+
 
 const ScorecardLegendsView = lazy(() =>
     import("./Components/ScorecardLegendsView")
@@ -69,6 +71,10 @@ export default function ScorecardView() {
                     className="column p-16"
                     style={{height: "100%", width: "100%", overflow: "auto"}}
                 >
+                        <ScorecardActions
+                        dataEngine={initialDataEngine}
+                        downloadAreaRef={downloadRef}
+                    />
                     <ScorecardHeader/>
                     <ScorecardLegendsView/>
                     <HighlightedIndicatorsView/>

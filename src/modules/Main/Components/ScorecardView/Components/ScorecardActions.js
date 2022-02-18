@@ -33,27 +33,38 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
     });
 
     const onEdit = () => {
-        if (writeAccess) {
+        if (true) {
             setRoute((prevRoute) => ({
                 ...prevRoute,
                 previous: `/view/${scorecardId}`,
             }));
-            history.push(`/edit/${scorecardId}`);
+            console.log("history ",window.parent.location)
+            console.log("server version",serverVersion)
+   const appUrl =   constructAppUrl(baseUrl,{
+            name:"hisptz-Scorecard",
+            title:"Interactive Dashboard"
+        },serverVersion)
+console.log("app url ",appUrl)
+        return window.parent.location.href(appUrl + "/edit/" + scorecardId)
+        //window.parent.location.href("/edit/" + scorecardId);
+            // history.push(`/edit/${scorecardId}`);
         }
     };
+
+//     const baseUrl = async()=>{
+  
+// const [, apiVersion] = (await fetch(`${manifest.activities.dhis.href}/api/system/info.json`)
+// .then(res => res.json())
+// .then((systemInfo) => systemInfo.version))
+//     }
+
+
 
     return (
         <div className="row end print-hide">
             <div className="column align-items-end">
                 <ButtonStrip>
-                    <Button
-                        className="option-button"
-                        dataTest={"scorecard-option-button"}
-                        onClick={() => setOptionsOpen(true)}
-                    >
-                        {i18n.t("Options")}
-                    </Button>
-                    {writeAccess && (
+                    {true && (
                         <Button
                             dataTest={"edit-scorecard-button"}
                             className="scorecard-view-edit-button"
@@ -62,20 +73,6 @@ export default function ScorecardActions({downloadAreaRef, dataEngine}) {
                             {i18n.t("Edit")}
                         </Button>
                     )}
-                    <DropdownButton
-                        component={
-                            <DownloadMenu onClose={() => {
-                            }} onDownload={onDownload}/>
-                        }
-                        className="download-button"
-                        dataTest={"download-button"}
-                    >
-                        {i18n.t("Download")}
-                    </DropdownButton>
-
-                    <Button className="refresh-button" onClick={onRefresh}>
-                        {i18n.t("Refresh")}
-                    </Button>
                 </ButtonStrip>
             </div>
 
