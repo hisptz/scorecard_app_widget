@@ -13,7 +13,8 @@ import {
     getOldScorecards,
     getScorecardKeys,
     uploadNewScorecard,
-    uploadSummary
+    uploadSummary,
+    generateOldWidgetQueries
 } from "../services/migrate";
 import useQueue from "./useQueue";
 
@@ -55,15 +56,16 @@ export default function useMigrateScorecard(onComplete) {
             const olddashboardKeys = clone(oldScorecardKeys);
 // console.log("new dashobard keys ",newDashboardKeys)
 
+
+
 let filteredKeyds = filter(olddashboardKeys,(oldDashboardItemId)=>{
-   
         return !newDashboardKeys.includes(oldDashboardItemId);
    })
-
-console.log("filtered keys ",filteredKeyds)
-console.log("old dashbioard ", olddashboardKeys)
-console.log("new dashboard ",newDashboardKeys)
-            
+filteredKeyds.map(async (ids)=>{
+    await generateOldWidgetQueries(ids,engine).then(idsn=>{
+        console.log("respons ", idsn)
+    })
+})
             const filteredKeys = filter(oldScorecardKeys, (key) => {
                 return !scorecardKeys.includes(key);
             });

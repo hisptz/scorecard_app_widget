@@ -8,7 +8,6 @@ const rootElement = document.getElementById('root')
 if (process.env.NODE_ENV === 'production') {
     const productionRender = async () => {
         try {
-            console.log("env ",process.env)
             const manifest = await (await fetch('./manifest.webapp')).json()
             const [major,minor,patch] = (await fetch(`${manifest.activities.dhis.href}/api/system/info.json`)
                 .then(res => res.json())

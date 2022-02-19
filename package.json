@@ -2,7 +2,7 @@
     "name": "hisptz-scorecard-widget",
     "description": "Scorecard widget for the interactive scorecard app",
     "homepage": ".",
-    "version": "2.5.0^dev",
+    "version": "2.5.0",
     "private": true,
     "developer": {
         "name": "Hisp Tanzania",
@@ -14,7 +14,7 @@
         "48": "dhis2-app-icon.png"
     },
     "manifest.webapp": {
-        "name": "Interactive Scorecard Widget^Dev",
+        "name": "Interactive Scorecard Widget",
         "description": "Score card widget",
         "appType": "DASHBOARD_WIDGET",
         "activities": {

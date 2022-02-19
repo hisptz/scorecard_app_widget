@@ -20,6 +20,16 @@ const generateOldScorecardQueries = (ids = []) => {
     );
 };
 
+export async function generateOldWidgetQueries (ids,engine) {
+    const oldScorecardsObject = await engine.query(
+       {
+        resource: DATASTORE_OLD_WIDGET_NAMESPACE,
+        id: ids
+       }
+    )
+        return oldScorecardsObject;
+}
+
 export async function getOldScorecards(engine, keys) {
     if (isEmpty(keys)) {
         return [];
