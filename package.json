@@ -1,8 +1,8 @@
 {
-    "name": "hisptz-scorecard-widget",
+    "name": "hisptz-scorecard-widget^Dev",
     "description": "Scorecard widget for the interactive scorecard app",
     "homepage": ".",
-    "version": "2.5.0",
+    "version": "2.5.0^Dev",
     "private": true,
     "developer": {
         "name": "Hisp Tanzania",
