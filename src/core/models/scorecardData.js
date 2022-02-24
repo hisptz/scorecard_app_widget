@@ -33,6 +33,7 @@ export default class ScorecardDataEngine {
     _dataEntities$ = new BehaviorSubject(this._dataEntities);
     dataEntities$ = this._dataEntities$.asObservable();
     _previousPeriods = [];
+    _calendar
 
     constructor() {
         this._cancelled = false;
@@ -47,11 +48,17 @@ export default class ScorecardDataEngine {
         return this;
     }
 
+    refresh() {
+        this.reset(false);
+        this.load();
+        return this;
+    }
+
     setPeriods(periods) {
         let previousPeriods = [];
         this._selectedPeriods = uniqBy(
             (periods || []).map((period) => {
-                const currentPeriod = new Period().setPreferences({allowFuturePeriods: true}).getById(period?.id);
+                const currentPeriod = new Period().setPreferences({allowFuturePeriods: true}).setCalendar(this._calendar).getById(period?.id);
                 previousPeriods = [...previousPeriods, currentPeriod?.lastPeriod];
                 return currentPeriod || period;
             }),
@@ -75,6 +82,11 @@ export default class ScorecardDataEngine {
                     return period?.id;
                 })
             ) ?? [];
+        return this;
+    }
+
+    setCalendar(calendar) {
+        this._calendar = calendar;
         return this;
     }
 
@@ -453,11 +465,17 @@ export default class ScorecardDataEngine {
         );
     }
 
-    reset() {
+    reset(cancel = false) {
+        this._totalRequests = 0;
+        this._progress = 0;
+        this._progress$ = new BehaviorSubject();
+        this._loading$ = new BehaviorSubject();
         this._dataEntities = {};
-        this._dataEntities$.next(this._dataEntities);
-        this._loading$.next(false);
-        this._cancelled = true;
+        this._dataEntities$ = new BehaviorSubject(this._dataEntities);
+        this.dataEntities$ = this._dataEntities$.asObservable();
+        this._previousPeriods = [];
+        this._dataEntities = {};
+        this._cancelled = cancel;
     }
 
     _getScorecardData(selections) {
