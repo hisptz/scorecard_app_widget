@@ -161,7 +161,7 @@ export default function TableCellAnalysis({
                 </div>
             </ModalContent>
             <ModalActions>
-                <div className="row space-between align-items-center">
+                <div className="row space-between align-items-center" >
                     <div>
                         {viewTypes?.map((type) => (
                             <Chip

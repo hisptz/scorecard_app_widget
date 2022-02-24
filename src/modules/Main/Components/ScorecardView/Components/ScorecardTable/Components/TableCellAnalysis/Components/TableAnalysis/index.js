@@ -9,6 +9,6 @@ export default function TableAnalysis() {
       style={{ minHeight: 500 }}
     >
       <TableItemComponent width="100%" />
-    </div> // TODO: @danford
+    </div> 
   );
 }
