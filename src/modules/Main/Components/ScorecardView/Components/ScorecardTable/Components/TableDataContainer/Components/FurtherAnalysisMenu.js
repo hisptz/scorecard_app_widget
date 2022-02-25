@@ -48,16 +48,16 @@ export default function FurtherAnalysisMenu({
                         label={i18n.t("Lower Organisation Unit Levels")}
                         icon={<IconDimensionOrgUnit16/>}
                     />
-                    <MenuItem
+                    {/* <MenuItem
                         showSubMenu={showSubMenu}
                         toggleSubMenu={() => {
                             setShowSubMenu(prevState => !prevState);
                         }}
                         label={i18n.t("Trend Analysis ")}
                         icon={<IconVisualizationLine24/>}
-                    >
+                    >                     
                         <MenuItem
-                            onClick={() => {
+                            onClick={()=>{
                                 setStateActionRef(undefined);
                                 setPeriodOptionValueStates([new Period().setPreferences({allowFuturePeriods: true}).getById("LAST_3_MONTHS")])
                                 setAnalysisOpen(true);
@@ -101,7 +101,7 @@ export default function FurtherAnalysisMenu({
                             label={i18n.t("Last 5 Years")}
                             icon={<IconVisualizationColumnStacked24/>}
                         />
-                    </MenuItem>
+                    </MenuItem> */}
 
                 </Menu>
             </Popover>

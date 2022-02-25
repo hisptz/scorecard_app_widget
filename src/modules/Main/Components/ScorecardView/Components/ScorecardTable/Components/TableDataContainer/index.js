@@ -113,10 +113,10 @@ function DataContainer({
                 />
             )}
             {stateActionRef && (
-                <FurtherAnalysisMenu orgUnit={orgUnit} period={period} dataSources={dataSources}
-                                     analysisOpen={analysisOpen} setAnalysisOpen={setAnalysisOpen}
-                                     stateActionRef={stateActionRef} setStateActionRef={setStateActionRef}
-                                     />
+             <FurtherAnalysisMenu orgUnit={orgUnit} period={period} dataSources={dataSources}
+             analysisOpen={analysisOpen} setAnalysisOpen={setAnalysisOpen}
+             stateActionRef={stateActionRef} setStateActionRef={setStateActionRef}
+             />
             )}
         </>
     );
