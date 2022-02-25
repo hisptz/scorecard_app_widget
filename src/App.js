@@ -23,8 +23,7 @@ export const App = () => {
 
 return    <DataStoreProvider
             namespace={DATASTORE_WIDGET_NAMESPACE}
-            loadingComponent={<FullPageLoader/>}
-        >
+            loadingComponent={<FullPageLoader/>}>
             <CssReset/>
             <RecoilRoot initializeState={initializeState}>
                 <ErrorBoundary FallbackComponent={FullPageError}>

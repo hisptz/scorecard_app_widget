@@ -54,18 +54,19 @@ export default function useMigrateScorecard(onComplete) {
             const oldScorecardKeys = await getOldScorecardKeys(engine);
             const newDashboardKeys = await getNewScorecardKeys(engine);
             const olddashboardKeys = clone(oldScorecardKeys);
-// console.log("new dashobard keys ",newDashboardKeys)
-
-
 
 let filteredKeyds = filter(olddashboardKeys,(oldDashboardItemId)=>{
         return !newDashboardKeys.includes(oldDashboardItemId);
    })
+   console.log("new dashobard keys ",newDashboardKeys)
+
 filteredKeyds.map(async (ids)=>{
     await generateOldWidgetQueries(ids,engine).then(idsn=>{
         console.log("respons ", idsn)
     })
 })
+console.log({filteredKeyds})
+
             const filteredKeys = filter(oldScorecardKeys, (key) => {
                 return !scorecardKeys.includes(key);
             });

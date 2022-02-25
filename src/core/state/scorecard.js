@@ -1,6 +1,6 @@
 import i18n from "@dhis2/d2-i18n";
 import {Period} from "@iapps/period-utilities";
-import {cloneDeep, filter, get as _get, head, isEmpty, set as _set,} from "lodash";
+import {cloneDeep, filter, get as _get, head, isEmpty, set as _set, some,} from "lodash";
 import {atom, atomFamily, selector, selectorFamily} from "recoil";
 import {
     getColSpanDataGroups,
@@ -11,7 +11,7 @@ import {
 } from "../../modules/Main/Components/ScorecardView/Components/ScorecardTable/utils";
 import getScorecard, {getOrgUnitSelection,} from "../../shared/services/getScorecard";
 import getScorecardSummary, {restoreScorecardSummary,} from "../../shared/services/getScorecardSummary";
-import {getHoldersFromGroups, uid} from "../../shared/utils/utils";
+import {getDataSourcesFromGroups, getHoldersFromGroups, uid} from "../../shared/utils/utils";
 import {Orientation} from "../constants/orientation";
 import ScorecardAccessType from "../constants/scorecardAccessType";
 import {TableSort} from "../constants/tableSort";
@@ -19,6 +19,7 @@ import OrgUnitSelection from "../models/orgUnitSelection";
 import Scorecard from "../models/scorecard";
 import ScorecardAccess from "../models/scorecardAccess";
 import ScorecardOptions from "../models/scorecardOptions";
+import {isOrgUnitId} from "../services/orgUnit";
 import {EngineState} from "./engine";
 import {OrgUnitChildren, SelectedOrgUnits} from "./orgUnit";
 import {PeriodResolverState} from "./period";
@@ -57,7 +58,7 @@ const defaultValue = {
             name: i18n.t("Not on track"),
         },
     ],
-    scorecardOptions: new ScorecardOptions(),
+    options: new ScorecardOptions(),
     publicAccess: new ScorecardAccess({
         id: "public",
         type: "public",
@@ -204,6 +205,20 @@ const ScorecardConfigEditState = atom({
     default: {},
 });
 
+const RefreshScorecardState = atom({
+    key: "refresh-scorecard",
+    default: 0,
+});
+
+
+const ScorecardNameSort = atomFamily({
+    key: "scorecard-name-sort",
+    default: {
+        orgUnit: TableSort.DEFAULT,
+        data: TableSort.DEFAULT,
+    },
+});
+
 const ScorecardViewState = atomFamily({
     key: "scorecard-view-config",
     default: selectorFamily({
@@ -214,12 +229,6 @@ const ScorecardViewState = atomFamily({
                     const scorecardId = get(ScorecardIdState);
                     const {calendar} = get(SystemSettingsState);
                     const configState = get(ScorecardConfState(scorecardId));
-                    if (key === "tableSort") {
-                        return {
-                            orgUnit: TableSort.DEFAULT,
-                            data: TableSort.DEFAULT,
-                        };
-                    }
                     if (key === "periodSelection") {
                         if (isEmpty(configState?.periodSelection?.periods)) {
                             const {periodType} = configState;
@@ -262,9 +271,12 @@ const ScorecardLegendDefinitionSelector = selectorFamily({
             },
 });
 
-const ScorecardTableSortState = atom({
+const ScorecardTableSortState = atomFamily({
     key: "scorecard-table-state",
-    default: {},
+    default: {
+        orgUnit: TableSort.DEFAULT,
+        data: TableSort.DEFAULT,
+    },
 });
 
 const ScorecardTableOrientationState = selector({
@@ -352,7 +364,9 @@ const ScorecardOrgUnitState = atomFamily({
                     let childrenOrgUnits = [];
                     const filteredOrgUnits = get(SelectedOrgUnits(orgUnits));
                     if (orgUnits.length === 1) {
-                        childrenOrgUnits = get(OrgUnitChildren(head(orgUnits)));
+                        if (isOrgUnitId(head(orgUnits))) {
+                            childrenOrgUnits = get(OrgUnitChildren(head(orgUnits)));
+                        }
                     }
                     return {
                         childrenOrgUnits,
@@ -378,6 +392,16 @@ const ScorecardDataLoadingState = atomFamily({
     key: "data-loading-state",
 });
 
+const IsSpecificTargetsSet = selector({
+    key: "is-specific-targets-set",
+    get: ({get}) => {
+        const {dataGroups} = get(ScorecardViewState("dataSelection"));
+        const dataSources = getDataSourcesFromGroups(dataGroups);
+        return some(dataSources, "specificTargetsSet");
+
+    }
+})
+
 export default ScorecardConfState;
 export {
     ScorecardConfigEditState,
@@ -398,4 +422,7 @@ export {
     ScorecardLegendDefinitionSelector,
     AllScorecardsSummaryState,
     IsNewScorecardState,
+    IsSpecificTargetsSet,
+    RefreshScorecardState,
+    ScorecardNameSort
 };

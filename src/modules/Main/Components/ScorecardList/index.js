@@ -1,3 +1,4 @@
+/*eslint-disable */
 import { useAlert } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import { Input } from "@dhis2/ui";
@@ -8,7 +9,6 @@ import { useHistory } from "react-router-dom";
 import {
   useRecoilState,
   useRecoilValue,
-  useResetRecoilState,
   useSetRecoilState,
 } from "recoil";
 import { STEP_OPTIONS } from "../../../../core/constants/help/options";
@@ -16,7 +16,6 @@ import { SCORECARD_LIST_HELP_STEPS } from "../../../../core/constants/help/score
 import HelpState from "../../../../core/state/help";
 import RouterState from "../../../../core/state/router";
 import {
-  ScorecardIdState,
   ScorecardSummaryState,
 } from "../../../../core/state/scorecard";
 import { FullPageLoader } from "../../../../shared/Components/Loaders";
@@ -29,8 +28,8 @@ import {load} from "../../../../core/services/widgetservice";
 import { EngineState } from "../../../../core/state/engine";
 import {scoreCardWidgetState} from "../../../../core/state/scorecardWidget";
 
-export default function ScorecardList() {
-  const resetScorecardIdState = useResetRecoilState(ScorecardIdState);
+export default function tScorecardList() {
+  // const resetScorecardIdState = useResetRecoilState(ScorecardIdState);
   const setRoute = useSetRecoilState(RouterState);
   const [helpEnabled, setHelpEnabled] = useRecoilState(HelpState);
   const history = useHistory();
@@ -80,7 +79,7 @@ export default function ScorecardList() {
   };
   useEffect(()=>{
     setIsLoading(true)
-    var dashboardItemId = (/[?&]dashboardItemId=([a-zA-Z0-9]{11})(?:&|$)/g
+    const dashboardItemId = (/[?&]dashboardItemId=([a-zA-Z0-9]{11})(?:&|$)/g
     .exec(window.location.search) || [undefined]).pop();
     if(dashboardItemId){
       setDashboardId(dashboardId);

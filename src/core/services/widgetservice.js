@@ -18,13 +18,7 @@ const loadQuery ={
 
 
 
-function generateAddWidgetMutation (id){
-    return {
-        type: "create",
-        resource: `${DATASTORE_SCORECARD_WIDGET}/${id}`,
-        data: ({ data }) => data,
-      }
-}
+
 export  async function loadAll(engine) {
     try {
         const response = await engine.query(loadAllQuery);
